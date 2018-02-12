@@ -1,0 +1,14 @@
+{
+  "name": "flecks-prototype",
+  "version": "1.0.0",
+  "description": "A software prototype for the FLECKS project.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jia-Uei Chen, Hong-Nhi Le",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
