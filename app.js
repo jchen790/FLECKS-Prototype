@@ -9,7 +9,6 @@ const server = express();
 const port = 3000;
 
 let counter = 0;
-let filename = './audio-recordings/audio-' + counter + '.wav';
 
 // using a web page and saving as a file locally for now
 // TODO - switch to an API call and store data in a database
@@ -30,7 +29,8 @@ binaryServer = BinaryServer({ port: 9001 });
 binaryServer.on('connection', (client) => {
     console.log('Connection established with client!');
 
-    var fileWriter = new wav.FileWriter(filename, {
+    let filename = './audio-recordings/audio-' + counter + '.wav';
+    let fileWriter = new wav.FileWriter(filename, {
         channels: 1,
         sampleRate: 48000,
         bitDepth: 16
