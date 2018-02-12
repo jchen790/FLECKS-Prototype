@@ -9,7 +9,9 @@
   "author": "Jia-Uei Chen, Hong-Nhi Le",
   "license": "ISC",
   "dependencies": {
+    "binaryjs": "^0.2.1",
     "express": "^4.16.2",
-    "pug": "^2.0.0-rc.4"
+    "pug": "^2.0.0-rc.4",
+    "wav": "^1.0.1"
   }
 }
