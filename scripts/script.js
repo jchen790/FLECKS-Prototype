@@ -4,12 +4,10 @@ client.on('open', () => {
     window.Stream = client.createStream();
 
     // get access to (browser) mic
-    if(!navigator.getUserMedia)
-    {
+    if (!navigator.getUserMedia) {
         alert('Error in requesting mic access');
     }
-    else
-    {
+    else {
         var session = { audio: true };
         navigator.getUserMedia(session, audioRec, (err) => {
             alert('Error in capturing audio');
@@ -21,31 +19,29 @@ var isRecording = false;
 
 function startAudioRec() {
     // start recording audio
-    recording = true;
+    isRecording = true;
 }
 
 function stopAudioRec() {
     // stop recording audio
-    recording = false;
-    Window.Stream.end();
+    isRecording = false;
+    window.Stream.end();
 }
 
 function audioRec(e) {
     // send audio through processing nodes
     let audioContext = window.AudioContext;
     let context = new audioContext();
-    let audioInput = context.createMediaStreamSource(stream);
-    let buffersize = 2048;
+    let audioInput = context.createMediaStreamSource(e);
+    let bufferSize = 2048;
 
-    let recorder = context.createScriptProcessor(BufferSize, 1, 1);
+    let recorder = context.createScriptProcessor(bufferSize, 1, 1);
 
     recorder.onaudioprocess = (e) => {
-        if(!recording)
-        {
+        if (!isRecording) {
             return;
         }
-        else
-        {
+        else {
             let left = e.inputBuffer.getChannelData(0);
             window.Stream.write(floatToInt(left));
         }
@@ -59,8 +55,7 @@ function floatToInt(x) {
     let length = x.length;
     let buffer = new Int16Array(length);
 
-    while(length--)
-    {
+    while (length--) {
         buffer[length] = buffer[length] * 0xFFFF;
     }
 
