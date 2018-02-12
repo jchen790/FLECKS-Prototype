@@ -8,6 +8,7 @@ let counter = 0;
 const fs = require('fs');
 const wav = require('wav');
 const pug = require('pug');
+const WebSocket = require('ws');
 const BinaryServer = require('binaryjs').BinaryServer;
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/scripts'));
@@ -25,7 +26,7 @@ server = BinaryServer({port: 9001});
 server.on('connection', (client) => {
     console.log('Connection established with client!');
 
-    let filename = 'audio-' + counter + '.wav';
+    let filename = './audio-recordings/audio-' + counter + '.wav';
     let fileWriter = new wav.FileWriter(filename, {
         channels: 1,
         sampleRate: 48000,
@@ -39,6 +40,7 @@ server.on('connection', (client) => {
         stream.on('end', () => {
             fileWriter.end();
             console.log("Stream ended. Audio saved in file " + filename);
+            counter++;
         });
 
         client.on('close', () => {
