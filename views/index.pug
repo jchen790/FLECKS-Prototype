@@ -2,11 +2,29 @@ doctype html
 html(lang="en")
   head
     title= "FLECKS Server (v1.0.0)"
+    style
+      include styles.css
     script(src="https://cdn.jsdelivr.net/binaryjs/0.2.1/binary.min.js")
   body
     h1 FLECKS Server (v1.0.0)
-    p This is a simple version where we use the browser mic to record audio and we save the wav file locally.
-    button(onclick="startAudioRec()") Start audio recording
-    button(onclick="stopAudioRec()") Stop audio recording
+    div
+      p This is a simple version of the server that can collect audio recordings and programming logs. 
+        br
+        | Currently, we use the browser mic to record audio and we save the wav file locally.
+      button(onclick="startAudioRec()") Start audio recording
+      button(onclick="stopAudioRec()") Stop audio recording
+    div
+      p Here are more items to simulate interactions with the interface.
+      div
+        button(onclick="clickedStart()") "Start" program 
+      div
+        input(type='radio', name='radioButton', value='1')
+        input(type='radio', name='radioButton', value='2')
+        input(type='radio', name='radioButton', value='3')
+      div
+        label(for='someText') Text:
+        input(type='text', placeholder='some text' name='someText')
+      div
+        button(onclick="clickedDebug()") "Debug" program
     script(src="script.js")
       
