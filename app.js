@@ -2,7 +2,6 @@ const express = require('express');
 const fs = require('fs');
 const wav = require('wav');
 const pug = require('pug');
-const WebSocket = require('ws');
 const BinaryServer = require('binaryjs').BinaryServer;
 
 const server = express();
@@ -29,6 +28,7 @@ binaryServer = BinaryServer({ port: 9001 });
 binaryServer.on('connection', (client) => {
     console.log('Connection established with client!');
 
+    // set up file writer for when we receive the audio stream 
     let filename = './audio-recordings/audio-' + counter + '.wav';
     let fileWriter = new wav.FileWriter(filename, {
         channels: 1,
@@ -40,6 +40,7 @@ binaryServer.on('connection', (client) => {
         console.log('New stream started!');
         stream.pipe(fileWriter);
 
+        // TODO - change to listen for a different sign to avoid having the client refresh the page
         stream.on('end', () => {
             fileWriter.end();
             console.log("Stream ended. Audio saved in file " + filename);
