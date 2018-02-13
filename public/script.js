@@ -2,7 +2,9 @@ var client = new BinaryClient('ws://localhost:9001');
 
 client.on('open', function () {
     window.Stream = client.createStream();
+    // window.Stream.write('0');
     let logStream = client.createStream('logStream');
+    // logStream.write('1');
 
     // get access to (browser) mic
     if (!navigator.getUserMedia)
@@ -22,13 +24,13 @@ client.on('open', function () {
     window.startAudioRec = function () {
         isRecording = true;
         console.log('"Start recording" button pressed');
-        logStream.write('"Start recording" button pressed');
+        logStream.write('"Start recording" button pressed \n');
     }
 
     window.stopAudioRec = function () {
         isRecording = false;
         console.log('"Stop recording" button pressed');
-        logStream.write('"Stop recording" button pressed');
+        logStream.write('"Stop recording" button pressed \n');
         window.Stream.end();
     }
 
@@ -69,27 +71,27 @@ client.on('open', function () {
 
     window.clickedStart = function () {
         console.log('"Start program" button clicked');
-        logStream.write('"Start program" button pressed');
+        logStream.write('"Start program" button pressed \n');
     }
 
     window.clickedDebug = function () {
         console.log('"Debug program" button clicked');
-        logStream.write('"Debug program" button pressed');
+        logStream.write('"Debug program" button pressed \n');
     }
 
     window.clickedAdd1 = function () {
         console.log('"Add block 1" button clicked');
-        logStream.write('"Add block 1" button clicked');
+        logStream.write('"Add block 1" button clicked \n');
     }
 
     window.clickedAdd2 = function () {
         console.log('"Add block 2" button clicked');
-        logStream.write('"Add block 2" button clicked');
+        logStream.write('"Add block 2" button clicked \n');
     }
 
     window.clickedAdd3 = function () {
         console.log('"Add block 3" button clicked');
-        logStream.write('"Add block 3" button clicked');
+        logStream.write('"Add block 3" button clicked \n');
     }
 });
 

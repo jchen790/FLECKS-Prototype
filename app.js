@@ -11,10 +11,10 @@ const port = 3000;
 let counter = 0;
 
 // logging to help debug server
-let logger = new(winston.Logger)({
+let logger = new (winston.Logger)({
     transports: [
-        new(winston.transports.Console)(),
-        new(winston.transports.File)({filename: './logs/server-log.log'})
+        new (winston.transports.Console)(),
+        new (winston.transports.File)({ filename: './logs/server-log.log' })
     ]
 });
 
@@ -50,15 +50,20 @@ binaryServer.on('connection', (client) => {
 
     // write to the audio file 
     client.on('stream', (stream, meta) => {
-        logger.log('info', 'New audio stream started');
-        stream.pipe(audioFileWriter);
+        console.log(stream);
 
-        // TODO - change to listen for a different sign to avoid having the client refresh the page
-        stream.on('end', () => {
-            audioFileWriter.end();
-            logger.log('info', 'Stream ended. Audio saved in file ' + audioFileName);
-            counter++;
-        });
+        if (stream.id == 0)
+        {
+            logger.log('info', 'New audio stream started');
+            stream.pipe(audioFileWriter);
+
+            // TODO - change to listen for a different sign to avoid having the client refresh the page
+            stream.on('end', () => {
+                audioFileWriter.end();
+                logger.log('info', 'Audio stream ended. Audio saved in file ' + audioFileName);
+                counter++;
+            });
+        }
     });
 
     let progLogFileName = './logs/programming-log-' + counter + '.log';
@@ -66,12 +71,16 @@ binaryServer.on('connection', (client) => {
 
     // write to programming logs
     client.on('stream', (stream, meta) => {
-        logger.log('info', 'New programming log stream started');
-        logFileWriteStream.write('New programming log stream started');
-        stream.pipe(logFileWriteStream);
+        console.log(stream);
+        if (stream.id != 0) {
+            logger.log('info', 'New programming log stream started');
+            logFileWriteStream.write('New programming log stream started \n');
+            stream.pipe(logFileWriteStream);
 
-        stream.on('end', () => {
-            logFileWriteStream.end();
-        })
+            stream.on('end', () => {
+                logFileWriteStream.end();
+                logger.log('info', 'Programming log stream ended. Programming log saved in file ' + progLogFileName);
+            })
+        }
     });
 });
