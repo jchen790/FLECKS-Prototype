@@ -41,8 +41,8 @@ binaryServer.on('connection', (client) => {
     logger.log('info', 'Connection established with client');
 
     // set up file writer for when we receive the audio stream 
-    let filename = './audio-recordings/audio-' + counter + '.wav';
-    let fileWriter = new wav.FileWriter(filename, {
+    let audioFileName = './audio-recordings/audio-' + counter + '.wav';
+    let audioFileWriter = new wav.FileWriter(audioFileName, {
         channels: 1,
         sampleRate: 48000,
         bitDepth: 16
@@ -50,14 +50,28 @@ binaryServer.on('connection', (client) => {
 
     // write to the audio file 
     client.on('stream', (stream, meta) => {
-        logger.log('info', 'New stream started');
-        stream.pipe(fileWriter);
+        logger.log('info', 'New audio stream started');
+        stream.pipe(audioFileWriter);
 
         // TODO - change to listen for a different sign to avoid having the client refresh the page
         stream.on('end', () => {
-            fileWriter.end();
-            logger.log('info', 'Stream ended. Audio saved in file ' + filename);
+            audioFileWriter.end();
+            logger.log('info', 'Stream ended. Audio saved in file ' + audioFileName);
             counter++;
         });
+    });
+
+    let progLogFileName = './logs/programming-log-' + counter + '.log';
+    let logFileWriteStream = fs.createWriteStream(progLogFileName);
+
+    // write to programming logs
+    client.on('stream', (stream, meta) => {
+        logger.log('info', 'New programming log stream started');
+        logFileWriteStream.write('New programming log stream started');
+        stream.pipe(logFileWriteStream);
+
+        stream.on('end', () => {
+            logFileWriteStream.end();
+        })
     });
 });
