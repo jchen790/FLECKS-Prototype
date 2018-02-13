@@ -1,66 +1,91 @@
+var client = new BinaryClient('ws://localhost:9001');
 
-    var client = new BinaryClient('ws://localhost:9001');
+client.on('open', function () {
+    window.Stream = client.createStream();
 
-    client.on('open', function () {
-        window.Stream = client.createStream();
+    // get access to (browser) mic
+    if (!navigator.getUserMedia)
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
-        // get access to (browser) mic
-        if (!navigator.getUserMedia)
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({ audio: true }, audioRec, function (err) {
+            alert('Error capturing audio.');
+        });
+    } else alert('getUserMedia not supported in this browser.');
 
-        if (navigator.getUserMedia) {
-            navigator.getUserMedia({ audio: true }, audioRec, function (err) {
-                alert('Error capturing audio.');
-            });
-        } else alert('getUserMedia not supported in this browser.');
+    // tells us when to start processing the audio 
+    var isRecording = false;
 
-        // tells us when to start processing the audio 
-        var isRecording = false;
+    // functions for the interface buttons
+    window.startAudioRec = function () {
+        isRecording = true;
+        console.log('"Start recording" button pressed');
+    }
 
-        // functions for the interface buttons
-        window.startAudioRec = function () {
-            isRecording = true;
-        }
+    window.stopAudioRec = function () {
+        isRecording = false;
+        console.log('"Stop recording" button pressed');
+        window.Stream.end();
+    }
 
-        window.stopAudioRec = function () {
-            isRecording = false;
-            window.Stream.end();
-        }
+    // sends the audio through processing nodes 
+    function audioRec(e) {
+        audioContext = window.AudioContext || window.webkitAudioContext;
+        context = new audioContext();
 
-        // sends the audio through processing nodes 
-        function audioRec(e) {
-            audioContext = window.AudioContext || window.webkitAudioContext;
-            context = new audioContext();
+        // the sample rate is in context.sampleRate
+        audioInput = context.createMediaStreamSource(e);
 
-            // the sample rate is in context.sampleRate
-            audioInput = context.createMediaStreamSource(e);
+        var bufferSize = 2048;
+        recorder = context.createScriptProcessor(bufferSize, 1, 1);
 
-            var bufferSize = 2048;
-            recorder = context.createScriptProcessor(bufferSize, 1, 1);
-
-            recorder.onaudioprocess = function (e) {
-                if (!isRecording) {
-                    return;
-                }
-                console.log('Is recording');
-                var left = e.inputBuffer.getChannelData(0);
-                window.Stream.write(float32ToInt16(left));
+        recorder.onaudioprocess = function (e) {
+            if (!isRecording) {
+                return;
             }
-
-            audioInput.connect(recorder);
-            recorder.connect(context.destination);
+            console.log('Is recording');
+            var left = e.inputBuffer.getChannelData(0);
+            window.Stream.write(float32ToInt16(left));
         }
 
-        // converts the buffer to the right format
-        function float32ToInt16(buffer) {
-            var l = buffer.length;
-            var buf = new Int16Array(l)
+        audioInput.connect(recorder);
+        recorder.connect(context.destination);
+    }
 
-            while (l--) {
-                buf[l] = buffer[l] * 0xFFFF;    //convert to 16 bit
-            }
-            return buf.buffer
+    // converts the buffer to the right format
+    function float32ToInt16(buffer) {
+        var l = buffer.length;
+        var buf = new Int16Array(l)
+
+        while (l--) {
+            buf[l] = buffer[l] * 0xFFFF;    //convert to 16 bit
         }
-    });
+        return buf.buffer
+    }
+});
 
+window.clickedStart = function()
+{
+    console.log('"Start program" button clicked');
+}
+
+window.clickedDebug = function()
+{
+    console.log('"Debug program" button clicked');
+}
+
+window.clickedAdd1 = function()
+{
+    console.log('"Add block 1" button clicked');
+}
+
+window.clickedAdd2 = function()
+{
+    console.log('"Add block 2" button clicked');
+}
+
+window.clickedAdd3 = function()
+{
+    console.log('"Add block 3" button clicked');
+}

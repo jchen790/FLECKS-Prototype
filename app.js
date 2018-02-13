@@ -48,6 +48,7 @@ binaryServer.on('connection', (client) => {
         bitDepth: 16
     });
 
+    // write to the audio file 
     client.on('stream', (stream, meta) => {
         logger.log('info', 'New stream started');
         stream.pipe(fileWriter);
