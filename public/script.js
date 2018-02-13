@@ -1,10 +1,9 @@
 var client = new BinaryClient('ws://localhost:9001');
 
 client.on('open', function () {
+    // create streams for audio and logs 
     window.Stream = client.createStream();
-    // window.Stream.write('0');
     let logStream = client.createStream('logStream');
-    // logStream.write('1');
 
     // get access to (browser) mic
     if (!navigator.getUserMedia)
@@ -69,6 +68,7 @@ client.on('open', function () {
         return buf.buffer
     }
 
+    // functions for the "programming" buttons, logs to console and the stream 
     window.clickedStart = function () {
         console.log('"Start program" button clicked');
         logStream.write('"Start program" button pressed \n');

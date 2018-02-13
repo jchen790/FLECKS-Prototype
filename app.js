@@ -50,10 +50,7 @@ binaryServer.on('connection', (client) => {
 
     // write to the audio file 
     client.on('stream', (stream, meta) => {
-        console.log(stream);
-
-        if (stream.id == 0)
-        {
+        if (stream.id == 0) {
             logger.log('info', 'New audio stream started');
             stream.pipe(audioFileWriter);
 
@@ -66,12 +63,12 @@ binaryServer.on('connection', (client) => {
         }
     });
 
+    // set up write stream for programming logging data
     let progLogFileName = './logs/programming-log-' + counter + '.log';
     let logFileWriteStream = fs.createWriteStream(progLogFileName);
 
     // write to programming logs
     client.on('stream', (stream, meta) => {
-        console.log(stream);
         if (stream.id != 0) {
             logger.log('info', 'New programming log stream started');
             logFileWriteStream.write('New programming log stream started \n');

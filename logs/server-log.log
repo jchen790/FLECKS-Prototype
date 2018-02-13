@@ -100,3 +100,22 @@
 {"level":"info","message":"New audio stream started","timestamp":"2018-02-13T16:04:41.796Z"}
 {"level":"info","message":"New programming log stream started","timestamp":"2018-02-13T16:04:41.823Z"}
 {"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-1.wav","timestamp":"2018-02-13T16:05:00.728Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-02-13T16:07:41.258Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-02-13T16:07:41.260Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-02-13T16:07:44.862Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-02-13T16:07:44.900Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-02-13T16:07:44.931Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-02-13T16:08:05.667Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-02-13T16:08:05.668Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-02-13T16:08:08.074Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-02-13T16:08:08.087Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-02-13T16:08:08.090Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-0.wav","timestamp":"2018-02-13T16:08:23.185Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-02-13T16:08:57.020Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-02-13T16:08:57.024Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-02-13T16:08:57.026Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-1.wav","timestamp":"2018-02-13T16:09:16.000Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-02-13T16:09:52.925Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-02-13T16:09:52.941Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-02-13T16:09:52.945Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-2.wav","timestamp":"2018-02-13T16:10:12.009Z"}
