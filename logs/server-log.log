@@ -1,0 +1,9 @@
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-02-13T14:18:36.100Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-02-13T14:20:30.883Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-02-13T14:20:37.703Z"}
+{"level":"info","message":"New stream started","timestamp":"2018-02-13T14:20:37.714Z"}
+{"level":"info","message":"Stream ended. Audio saved in file ./audio-recordings/audio-0.wav","timestamp":"2018-02-13T14:20:50.562Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-02-13T14:22:12.918Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-02-13T14:22:12.919Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-02-13T14:22:17.319Z"}
+{"level":"info","message":"New stream started","timestamp":"2018-02-13T14:22:17.332Z"}
