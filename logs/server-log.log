@@ -125,3 +125,65 @@
 {"level":"info","message":"New audio stream started","timestamp":"2018-02-13T16:12:44.497Z"}
 {"level":"info","message":"New programming log stream started","timestamp":"2018-02-13T16:12:44.499Z"}
 {"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-0.wav","timestamp":"2018-02-13T16:12:54.112Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-03-20T19:33:16.239Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-03-20T19:33:16.243Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-20T19:33:20.746Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-20T19:33:20.768Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-20T19:33:20.770Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-20T19:48:43.865Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-20T19:48:43.870Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-20T19:48:43.872Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-20T20:19:24.103Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-20T20:19:24.125Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-20T20:19:24.127Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-03-21T01:45:33.493Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-03-21T01:45:33.495Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T01:45:39.154Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T01:45:39.168Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T01:45:39.173Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-03-21T01:49:11.745Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-03-21T01:49:11.749Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T01:49:18.318Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T01:49:18.348Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T01:49:18.350Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-0.wav","timestamp":"2018-03-21T01:49:24.632Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T01:49:31.071Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T01:49:31.075Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T01:49:31.076Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-03-21T13:08:54.593Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-03-21T13:08:54.598Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:08:58.224Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:08:58.247Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:08:58.249Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-0.wav","timestamp":"2018-03-21T13:09:05.625Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:09:06.098Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:09:06.119Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:09:06.127Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:09:40.498Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:09:40.514Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:09:40.520Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-1.wav","timestamp":"2018-03-21T13:09:47.646Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:09:48.164Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:09:48.182Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:09:48.190Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-2.wav","timestamp":"2018-03-21T13:09:53.160Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:09:53.630Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:09:53.661Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:09:53.667Z"}
+{"level":"info","message":"***********************SERVER HAS (RE)STARTED***********************","timestamp":"2018-03-21T13:11:57.713Z"}
+{"level":"info","message":"Server listening on port 3000","timestamp":"2018-03-21T13:11:57.717Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:12:06.909Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:12:06.975Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:12:06.989Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-0.wav","timestamp":"2018-03-21T13:12:10.186Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:12:10.655Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:12:10.678Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:12:10.694Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-1.wav","timestamp":"2018-03-21T13:12:13.023Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:12:13.489Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:12:13.518Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:12:13.531Z"}
+{"level":"info","message":"Audio stream ended. Audio saved in file ./audio-recordings/audio-2.wav","timestamp":"2018-03-21T13:12:15.294Z"}
+{"level":"info","message":"Connection established with client","timestamp":"2018-03-21T13:12:15.755Z"}
+{"level":"info","message":"New audio stream started","timestamp":"2018-03-21T13:12:15.773Z"}
+{"level":"info","message":"New programming log stream started","timestamp":"2018-03-21T13:12:15.780Z"}

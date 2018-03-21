@@ -1,3 +1,5 @@
+// app.locals.serverResponse = 'waiting for server...';
+
 var client = new BinaryClient('ws://localhost:9001');
 
 client.on('open', function () {
@@ -31,6 +33,7 @@ client.on('open', function () {
         console.log('"Stop recording" button pressed');
         logStream.write('"Stop recording" button pressed \n');
         window.Stream.end();
+        location.reload();
     }
 
     // sends the audio through processing nodes 

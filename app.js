@@ -8,6 +8,8 @@ const winston = require('winston');
 const server = express();
 const port = 3000;
 
+server.locals.serverResponse = 'waiting for server...';
+
 let counter = 0;
 
 // logging to help debug server
@@ -59,6 +61,7 @@ binaryServer.on('connection', (client) => {
                 audioFileWriter.end();
                 logger.log('info', 'Audio stream ended. Audio saved in file ' + audioFileName);
                 counter++;
+                server.locals.serverResponse = 'Audio recorded, saved as ' + audioFileName;
             });
         }
     });
