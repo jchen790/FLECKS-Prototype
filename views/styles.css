@@ -1,4 +1,15 @@
 div
 {
-    margin: 20px 10px;
+    margin: 30px 20px;
+    text-align: center;
+}
+
+.btn
+{
+    margin: 10px;
+}
+
+img
+{
+    margin: 20px;
 }

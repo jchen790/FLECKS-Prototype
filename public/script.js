@@ -1,5 +1,3 @@
-// app.locals.serverResponse = 'waiting for server...';
-
 var client = new BinaryClient('ws://localhost:9001');
 
 client.on('open', function () {

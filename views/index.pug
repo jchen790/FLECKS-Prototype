@@ -1,32 +1,36 @@
 doctype html
 html(lang="en")
   head
-    title= "FLECKS Server (v1.0.0)"
+    title= "FLECKS Audio Collection Prototype (v2.0.0)"
     style
       include styles.css
     script(src="https://cdn.jsdelivr.net/binaryjs/0.2.1/binary.min.js")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css", integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm", crossorigin="anonymous")
+    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js", integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN", crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js", integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q", crossorigin="anonymous")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js", integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl", crossorigin="anonymous")
   body
-    h1 FLECKS Server (v1.0.0)
     div
-      p This is a simple version of the server that can collect audio recordings and programming logs. 
-        br
-        | Currently, we use the browser mic to record audio and we save the wav file locally.
-      button(onclick="startAudioRec()") Start audio recording
-      button(onclick="stopAudioRec()") Stop audio recording
+      h1 FLECKS Audio Collection Prototype (v2.0.0)
+      p This is a prototype of the FLECKS server to demonstrate the audio collection. As students interact with the client, the server will collect audio recordings and provide feedback. 
     div
-      p Here are more items to simulate interactions with the interface.
-      div
-        button(onclick="clickedStart()") Start program 
-      div
-        button(onclick="clickedDebug()") Debug program
-      div
-        button(onclick="clickedAdd1()") Add block 1 to code
-      div
-        button(onclick="clickedAdd2()") Add block 2 to code
-      div
-        button(onclick="clickedAdd3()") Add block 3 to code
+      h3 Audio Recording Buttons
+      p These buttons start and stop the audio recording for the session.
+      button(type="button", class="btn btn-primary", onclick="startAudioRec()") Start audio recording
+      button(type="button", class="btn btn-primary", onclick="stopAudioRec()") Stop audio recording
     div
       h3 Server Response
+      img(src="/agents.png", alt="Virtual Agent Silhouettes")
       p #{serverResponse}
+    div
+      h3 Additional Buttons
+      p Here are more items to simulate interactions with the interface.
+      div
+        button(type="button", class="btn btn-secondary", onclick="clickedStart()") Start program 
+        button(type="button", class="btn btn-secondary", onclick="clickedDebug()") Debug program
+      div
+        button(type="button", class="btn btn-secondary", onclick="clickedAdd1()") Add block 1 to code
+        button(type="button", class="btn btn-secondary", onclick="clickedAdd2()") Add block 2 to code
+        button(type="button", class="btn btn-secondary", onclick="clickedAdd3()") Add block 3 to code
     script(src="script.js")
       

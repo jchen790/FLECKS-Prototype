@@ -8,7 +8,7 @@ const winston = require('winston');
 const server = express();
 const port = 3000;
 
-server.locals.serverResponse = 'waiting for server...';
+server.locals.serverResponse = 'The Virtual Agents have nothing to say at the moment.';
 
 let counter = 0;
 
@@ -61,7 +61,8 @@ binaryServer.on('connection', (client) => {
                 audioFileWriter.end();
                 logger.log('info', 'Audio stream ended. Audio saved in file ' + audioFileName);
                 counter++;
-                server.locals.serverResponse = 'Audio recorded, saved as ' + audioFileName;
+                server.locals.serverResponse = 'The Virtual Agents have some advice for you to help you collaborate better!';
+                // server.locals.serverResponse = 'Audio recorded, saved as ' + audioFileName;
             });
         }
     });
