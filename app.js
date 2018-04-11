@@ -1,14 +1,17 @@
 const express = require('express');
+const server = express();
+const port = 3000;
 const fs = require('fs');
 const wav = require('wav');
 const pug = require('pug');
 const BinaryServer = require('binaryjs').BinaryServer;
 const winston = require('winston');
+const http = require('http').Server(server);
+const io = require('socket.io')(http);
 
-const server = express();
-const port = 3000;
 
 server.locals.serverResponse = 'The Virtual Agents have nothing to say at the moment.';
+server.locals.serverAudioUrl = '';
 
 let counter = 0;
 
@@ -26,6 +29,24 @@ let logger = new (winston.Logger)({
 server.set('view engine', 'pug');
 server.use(express.static(__dirname + '/public'));
 
+
+// server.get('/', function(req, res) {
+//     res.render('index');
+// })
+
+// io.on('connection', function(socket) {
+//     console.log('user connected');
+//     socket.on('chat message', function(msg) {
+//         io.emit('chat message', msg);
+//     });
+//     socket.on('disconnect', function() {
+//         console.log('user disconnected');
+//     });
+// });
+
+// http.listen(3000, function() {
+//     console.log('listening on *:3000');
+// });
 
 server.get('/', (request, response) => {
     response.render('index');
@@ -62,25 +83,29 @@ binaryServer.on('connection', (client) => {
                 logger.log('info', 'Audio stream ended. Audio saved in file ' + audioFileName);
                 counter++;
                 server.locals.serverResponse = 'The Virtual Agents have some advice for you to help you collaborate better!';
+                server.locals.serverAudioUrl = 'server_audio.wav';
                 // server.locals.serverResponse = 'Audio recorded, saved as ' + audioFileName;
             });
         }
     });
 
     // set up write stream for programming logging data
-    let progLogFileName = './logs/programming-log-' + counter + '.log';
-    let logFileWriteStream = fs.createWriteStream(progLogFileName);
+    let sessionLogFileName = './logs/-session' + counter + '-log.log';
+    let logFileWriteStream = fs.createWriteStream(sessionLogFileName);
 
     // write to programming logs
     client.on('stream', (stream, meta) => {
         if (stream.id != 0) {
             logger.log('info', 'New programming log stream started');
-            logFileWriteStream.write('New programming log stream started \n');
+            // logFileWriteStream.write('New programming log stream started \n');
             stream.pipe(logFileWriteStream);
 
             stream.on('end', () => {
+                let tempDate = new Date();
+                let currDate = tempDate.toLocaleString("en-US");
+                logFileWriteStream.write(currDate + " --- INFO --- Session log stream ended. Programming log saved in file " + sessionLogFileName + ' \n');
                 logFileWriteStream.end();
-                logger.log('info', 'Programming log stream ended. Programming log saved in file ' + progLogFileName);
+                logger.log('info', 'Session log stream ended. Programming log saved in file ' + sessionLogFileName);
             })
         }
     });

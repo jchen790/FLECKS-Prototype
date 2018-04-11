@@ -1,9 +1,14 @@
 var client = new BinaryClient('ws://localhost:9001');
+var ERROR = 0;
+var INFO = 1;
+var DEBUG = 2;
 
 client.on('open', function () {
     // create streams for audio and logs 
     window.Stream = client.createStream();
     let logStream = client.createStream('logStream');
+    writeToLog(INFO, 'Connected to client');
+    writeToLog(INFO, 'Audio and Log streams started');
 
     // get access to (browser) mic
     if (!navigator.getUserMedia)
@@ -13,8 +18,12 @@ client.on('open', function () {
     if (navigator.getUserMedia) {
         navigator.getUserMedia({ audio: true }, audioRec, function (err) {
             alert('Error capturing audio.');
+            writeToLog(ERROR, "Could not capture audio");
         });
-    } else alert('getUserMedia not supported in this browser.');
+    } else {
+        alert('getUserMedia not supported in this browser.');
+        writeToLog(ERROR, 'getUserMedia not supported in this browser');
+    }
 
     // tells us when to start processing the audio 
     var isRecording = false;
@@ -23,14 +32,15 @@ client.on('open', function () {
     window.startAudioRec = function () {
         isRecording = true;
         console.log('"Start recording" button pressed');
-        logStream.write('"Start recording" button pressed \n');
+        writeToLog(INFO, 'Start recording audio');
     }
 
     window.stopAudioRec = function () {
         isRecording = false;
         console.log('"Stop recording" button pressed');
-        logStream.write('"Stop recording" button pressed \n');
+        writeToLog(INFO, 'Stop recording audio');
         window.Stream.end();
+        writeToLog(INFO, 'Audio stream ended');
         location.reload();
     }
 
@@ -69,30 +79,34 @@ client.on('open', function () {
         return buf.buffer
     }
 
-    // functions for the "programming" buttons, logs to console and the stream 
-    window.clickedStart = function () {
-        console.log('"Start program" button clicked');
-        logStream.write('"Start program" button pressed \n');
-    }
+    /*
+        0 - Error
+        1 - Info
+        2 - Debug
+    */
+    function writeToLog(type, logString)
+    {
+        let tempDate = new Date();
+        let currDate = tempDate.toLocaleString("en-US");
 
-    window.clickedDebug = function () {
-        console.log('"Debug program" button clicked');
-        logStream.write('"Debug program" button pressed \n');
-    }
+        let typeString = "";
+        if (type === 0)
+        {
+            typeString = "ERROR";
+        }
+        else if (type === 1)
+        {
+            typeString = "INFO";
+        }
+        else if (type === 2)
+        {
+            typeString = "DEBUG";
+        }
+        else
+        {
+            typeString = "LOG";
+        }
 
-    window.clickedAdd1 = function () {
-        console.log('"Add block 1" button clicked');
-        logStream.write('"Add block 1" button clicked \n');
-    }
-
-    window.clickedAdd2 = function () {
-        console.log('"Add block 2" button clicked');
-        logStream.write('"Add block 2" button clicked \n');
-    }
-
-    window.clickedAdd3 = function () {
-        console.log('"Add block 3" button clicked');
-        logStream.write('"Add block 3" button clicked \n');
+        logStream.write(currDate + " --- " + typeString + " --- " + logString + ' \n');
     }
 });
-

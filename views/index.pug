@@ -21,16 +21,9 @@ html(lang="en")
     div
       h3 Server Response
       img(src="/agents.png", alt="Virtual Agent Silhouettes")
+      div
+        - var url=serverAudioUrl;
+        audio(controls="controls", controlsList="nofullscreen nodownload noremoteplayback", src="/"+url, autoplay)
       p #{serverResponse}
-    div
-      h3 Additional Buttons
-      p Here are more items to simulate interactions with the interface.
-      div
-        button(type="button", class="btn btn-secondary", onclick="clickedStart()") Start program 
-        button(type="button", class="btn btn-secondary", onclick="clickedDebug()") Debug program
-      div
-        button(type="button", class="btn btn-secondary", onclick="clickedAdd1()") Add block 1 to code
-        button(type="button", class="btn btn-secondary", onclick="clickedAdd2()") Add block 2 to code
-        button(type="button", class="btn btn-secondary", onclick="clickedAdd3()") Add block 3 to code
     script(src="script.js")
       
