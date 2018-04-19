@@ -32,6 +32,8 @@ client.on('open', function () {
     window.startAudioRec = function () {
         isRecording = true;
         console.log('"Start recording" button pressed');
+        // window.Stream.emit('data', 'stop audio');
+        // window.Stream.resume();
         writeToLog(INFO, 'Start recording audio');
     }
 
@@ -39,9 +41,11 @@ client.on('open', function () {
         isRecording = false;
         console.log('"Stop recording" button pressed');
         writeToLog(INFO, 'Stop recording audio');
-        window.Stream.end();
+        // window.Stream.end();
+        window.Stream.pause();
+        // window.Stream.resume();
         writeToLog(INFO, 'Audio stream ended');
-        location.reload();
+        // location.reload();
     }
 
     // sends the audio through processing nodes 
@@ -61,6 +65,7 @@ client.on('open', function () {
             }
             console.log('Is recording');
             var left = e.inputBuffer.getChannelData(0);
+            // window.Stream.resume();
             window.Stream.write(float32ToInt16(left));
         }
 

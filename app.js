@@ -9,7 +9,6 @@ const winston = require('winston');
 const http = require('http').Server(server);
 const io = require('socket.io')(http);
 
-
 server.locals.serverResponse = 'The Virtual Agents have nothing to say at the moment.';
 server.locals.serverAudioUrl = '';
 
@@ -60,6 +59,7 @@ server.listen(port, () => {
 // set up connection to client
 binaryServer = BinaryServer({ port: 9001 });
 
+
 binaryServer.on('connection', (client) => {
     logger.log('info', 'Connection established with client');
 
@@ -71,8 +71,14 @@ binaryServer.on('connection', (client) => {
         bitDepth: 16
     });
 
+    // set up write stream for programming logging data
+    let sessionLogFileName = './logs/session-' + counter + '-log.log';
+    let logFileWriteStream = fs.createWriteStream(sessionLogFileName);
+
     // write to the audio file 
     client.on('stream', (stream, meta) => {
+        console.log(stream);
+
         if (stream.id == 0) {
             logger.log('info', 'New audio stream started');
             stream.pipe(audioFileWriter);
@@ -80,18 +86,43 @@ binaryServer.on('connection', (client) => {
             // TODO - change to listen for a different sign to avoid having the client refresh the page
             stream.on('end', () => {
                 audioFileWriter.end();
+                let tempDate = new Date();
+                let currDate = tempDate.toLocaleString("en-US");
+                logFileWriteStream.write(currDate + ' --- INFO --- Audio stream ended. Audio saved in file ' + audioFileName + ' \n');
+                
                 logger.log('info', 'Audio stream ended. Audio saved in file ' + audioFileName);
                 counter++;
                 server.locals.serverResponse = 'The Virtual Agents have some advice for you to help you collaborate better!';
                 server.locals.serverAudioUrl = 'server_audio.wav';
                 // server.locals.serverResponse = 'Audio recorded, saved as ' + audioFileName;
             });
+
+            stream.on('pause', () => {
+                console.log(">>> received alt event");
+
+                audioFileWriter.end();
+                let tempDate = new Date();
+                let currDate = tempDate.toLocaleString("en-US");
+                logFileWriteStream.write(currDate + ' --- INFO --- Audio stream ended. Audio saved in file ' + audioFileName + ' \n');
+                
+                logger.log('info', 'Audio stream ended. Audio saved in file ' + audioFileName);
+                counter++;
+                server.locals.serverResponse = 'The Virtual Agents have some advice for you to help you collaborate better!';
+                server.locals.serverAudioUrl = 'server_audio.wav';
+
+                audioFileName = './audio-recordings/audio-' + counter + '.wav';
+                audioFileWriter = new wav.FileWriter(audioFileName, {
+                    channels: 1,
+                    sampleRate: 48000,
+                    bitDepth: 16
+                });
+            })
         }
     });
 
-    // set up write stream for programming logging data
-    let sessionLogFileName = './logs/-session' + counter + '-log.log';
-    let logFileWriteStream = fs.createWriteStream(sessionLogFileName);
+    // // set up write stream for programming logging data
+    // let sessionLogFileName = './logs/-session' + counter + '-log.log';
+    // let logFileWriteStream = fs.createWriteStream(sessionLogFileName);
 
     // write to programming logs
     client.on('stream', (stream, meta) => {
