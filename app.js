@@ -1,9 +1,13 @@
-// Logging enums
+// Logging enums and debugging flags
 var LOG = {
     Error: 0,
     Info: 1,
     Debug: 2
 };
+var DEBUG = true;
+
+// Checks for number of connected users
+var connectedUsers = 0;
 
 const app = require('express')();
 const http = require('http').Server(app);
@@ -43,14 +47,21 @@ let serverLogFileWriteStream = fs.createWriteStream(serverLogFileName);
 
 // Use socket.io and socket.io-stream libraries to stream and emit data
 io.sockets.on('connection', function (socket) {
-    console.log('> a user connected');
+    connectedUsers++;
+    if (DEBUG)
+    {
+        console.log('> a user connected');
+    }
     writeToServerLog(LOG.Debug, "A user connected");
 
     // New user connected - log user
     socket.on('new_user', function (username) {
         socket.username = username;
         socket.emit('user_acked', 'You are connected!');
-        console.log('>>> ' + socket.username + ' has connected');
+        if(DEBUG)
+        {
+            console.log('>>> ' + socket.username + ' has connected');
+        }
         writeToServerLog(LOG.Info, socket.username + " is now connected");
         writeToSessionLog(LOG.Info, socket.username + " is now connected");
     });
@@ -64,7 +75,10 @@ io.sockets.on('connection', function (socket) {
 
     // Send audio response
     socket.on('request_response', function (data) {
-        console.log('> audio response requested');
+        if(DEBUG)
+        {
+            console.log('> audio response requested');
+        }
         writeToServerLog(LOG.Info, socket.username + " requested an audio response from server");
 
         let stream = ss.createStream();
@@ -83,11 +97,11 @@ io.sockets.on('connection', function (socket) {
         sessionLogFileWriteStream.write(message);
     });
 
-    // convo ends
-
     socket.on('disconnect', function (message) {
         writeToServerLog(LOG.Info, socket.username + " has disconnected");
         writeToSessionLog(LOG.Info, socket.username + " has disconnected");
+        connectedUsers--;
+        resetSessionLog(connectedUsers);
     });
 });
 
@@ -103,7 +117,10 @@ function writeAudioFile(dataURL, fileName)
     fileBuffer = new Buffer(dataURL, 'base64');
     fs.writeFileSync(filePath, fileBuffer);
 
-    console.log('> audio file saved as ' + filePath);
+    if(DEBUG)
+    {
+        console.log('> audio file saved as ' + filePath);
+    }
     writeToServerLog(LOG.Info, "Audio file is saved at " + filePath);
     writeToSessionLog(LOG.Info, "Audio file is saved at " + filePath);
 }
@@ -160,4 +177,18 @@ function writeToSessionLog(type, logString)
     }
 
     sessionLogFileWriteStream.write(currDate + " --- " + typeString + " --- " + logString + ' \n');
+}
+
+function resetSessionLog(numUsers)
+{
+    if (numUsers === 0)
+    {
+        writeToSessionLog(LOG.Info, "Session has ended, there are no more participants");
+        sessionLogFileWriteStream.end();
+        writeToServerLog(LOG.Info, "Session log saved at " + sessionLogFileName);
+
+        // Start new session log file stream
+        sessionLogFileName = './logs/session-' + Date.now() + '.log';
+        sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName); 
+    }
 }

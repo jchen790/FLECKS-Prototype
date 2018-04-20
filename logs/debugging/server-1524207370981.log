@@ -1,0 +1,17 @@
+4/20/2018, 2:56:10 AM --- DEBUG --- Server is now listening 
+4/20/2018, 2:56:21 AM --- DEBUG --- A user connected 
+4/20/2018, 2:56:27 AM --- INFO --- q1 is now connected 
+4/20/2018, 2:56:31 AM --- DEBUG --- A user connected 
+4/20/2018, 2:56:33 AM --- INFO --- q2 is now connected 
+4/20/2018, 2:56:45 AM --- INFO --- q1 requested an audio response from server 
+4/20/2018, 2:56:45 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 2:56:45 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 2:56:47 AM --- INFO --- q2 requested an audio response from server 
+4/20/2018, 2:56:47 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 2:56:47 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 2:56:49 AM --- INFO --- q1 requested an audio response from server 
+4/20/2018, 2:56:49 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 2:56:49 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 2:56:51 AM --- INFO --- Audio file is saved at ./audio-recordings/q2-1524207411265.wav 
+4/20/2018, 2:56:54 AM --- INFO --- Audio file is saved at ./audio-recordings/q1-1524207413991.wav 
+4/20/2018, 2:57:00 AM --- INFO --- q2 has disconnected 

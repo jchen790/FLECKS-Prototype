@@ -72,6 +72,7 @@ socketio.on('connect', function(message) {
         });
 
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " stopped recording"));
+        socketio.emit('end_session', 0);
     });
 
     $('#request').click(function () {
