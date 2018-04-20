@@ -59,7 +59,6 @@ let serverLogFileWriteStream = fs.createWriteStream(serverLogFileName);
 io.sockets.on('connection', function (socket) {
     socket.username = "";
     connectedUsers++;
-    audioResponseInterval.unref();
 
     if (DEBUG) {
         console.log('> a user connected');
@@ -71,7 +70,6 @@ io.sockets.on('connection', function (socket) {
     socket.on('new_user', function (username) {
         socket.username = username;
         socket.emit('user_acked', 'You are connected!');
-        audioResponseInterval.ref();
 
         if (DEBUG) {
             console.log('>>> ' + socket.username + ' has connected');

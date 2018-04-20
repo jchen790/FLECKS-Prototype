@@ -1,0 +1,5 @@
+4/20/2018, 6:48:28 AM --- INFO --- testing-audio is now connected 
+4/20/2018, 6:48:28 AM --- INFO --- Client testing-audio is ready to record 
+4/20/2018, 6:48:29 AM --- INFO --- Client testing-audio began recording 
+4/20/2018, 6:48:33 AM --- INFO --- Client testing-audio stopped recording 
+4/20/2018, 6:48:33 AM --- INFO --- Audio file is saved at ./audio-recordings/testing-audio-1524221313711.wav 
