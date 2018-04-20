@@ -1,83 +1,77 @@
-const express = require('express');
-const fs = require('fs');
-const wav = require('wav');
-const pug = require('pug');
-const BinaryServer = require('binaryjs').BinaryServer;
-const winston = require('winston');
+const app = require('express')();
+const http = require('http').Server(app);
+const path = require("path");
+const fs = require("fs");
+const io = require('socket.io')(http);
+const ss = require('socket.io-stream');
 
-const server = express();
+// Choose which local port
 const port = 3000;
 
-let counter = 0;
-
-// logging to help debug server
-let logger = new (winston.Logger)({
-    transports: [
-        new (winston.transports.Console)(),
-        new (winston.transports.File)({ filename: './logs/server-log.log' })
-    ]
+// Serve html file
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
 });
 
-// using a web page and saving as a file locally for now
-// TODO - switch to an API call and store data in a database
-
-server.set('view engine', 'pug');
-server.use(express.static(__dirname + '/public'));
-
-
-server.get('/', (request, response) => {
-    response.render('index');
+// Serve custom js
+app.get('/script.js', function (req, res) {
+    res.sendFile(__dirname + '/script.js');
 });
 
-server.listen(port, () => {
-    logger.log('info', '***********************SERVER HAS (RE)STARTED***********************');
-    logger.log('info', 'Server listening on port 3000');
+// Serve recording js
+app.get('/recordrtc/RecordRTC.js', function (req, res) {
+    res.sendFile(__dirname + '/recordrtc/RecordRTC.js');
 });
 
-// set up connection to client
-binaryServer = BinaryServer({ port: 9001 });
+// Serve streaming js
+app.get('/socket.io-stream.js', function (req, res) {
+    res.sendFile(__dirname + '/socket.io-stream.js');
+});
 
-binaryServer.on('connection', (client) => {
-    logger.log('info', 'Connection established with client');
+io.sockets.on('connection', function (socket) {
+    console.log('> a user connected');
 
-    // set up file writer for when we receive the audio stream 
-    let audioFileName = './audio-recordings/audio-' + counter + '.wav';
-    let audioFileWriter = new wav.FileWriter(audioFileName, {
-        channels: 1,
-        sampleRate: 48000,
-        bitDepth: 16
+    // New user connected - log user
+    socket.on('new_user', function (username) {
+        socket.username = username;
+        socket.emit('user_acked', 'You are connected!');
+        console.log('>>> ' + socket.username + ' has connected');
     });
 
-    // write to the audio file 
-    client.on('stream', (stream, meta) => {
-        if (stream.id == 0) {
-            logger.log('info', 'New audio stream started');
-            stream.pipe(audioFileWriter);
+    // Collect audio stream
+    socket.on('audio', function (data) {
+        let fileName = socket.username + '-' + Date.now();
 
-            // TODO - change to listen for a different sign to avoid having the client refresh the page
-            stream.on('end', () => {
-                audioFileWriter.end();
-                logger.log('info', 'Audio stream ended. Audio saved in file ' + audioFileName);
-                counter++;
-            });
-        }
+        writeAudioFile(data.audio.dataURL, fileName + '.wav');
     });
 
-    // set up write stream for programming logging data
-    let progLogFileName = './logs/programming-log-' + counter + '.log';
-    let logFileWriteStream = fs.createWriteStream(progLogFileName);
+    // Send audio response
+    socket.on('request_response', function (data) {
+        console.log('> audio response requested');
 
-    // write to programming logs
-    client.on('stream', (stream, meta) => {
-        if (stream.id != 0) {
-            logger.log('info', 'New programming log stream started');
-            logFileWriteStream.write('New programming log stream started \n');
-            stream.pipe(logFileWriteStream);
+        let stream = ss.createStream();
+        let fileName = __dirname + '/server-audio0.wav';
 
-            stream.on('end', () => {
-                logFileWriteStream.end();
-                logger.log('info', 'Programming log stream ended. Programming log saved in file ' + progLogFileName);
-            })
-        }
+        console.log(fileName);
+
+        ss(socket).emit('audio-stream', stream, {name: fileName});
+        fs.createReadStream(fileName).pipe(stream);
+
+        console.log('after socketio-stream');
     });
 });
+
+http.listen(port, function () {
+    console.log('listening on http://localhost:' + port);
+});
+
+function writeAudioFile(dataURL, fileName)
+{
+    let filePath = './audio-recordings/' + fileName;
+    let fileBuffer;
+    dataURL = dataURL.split(',').pop();
+    fileBuffer = new Buffer(dataURL, 'base64');
+    fs.writeFileSync(filePath, fileBuffer);
+
+    console.log('> audio file saved as ' + filePath);
+}

@@ -12,7 +12,13 @@
   "dependencies": {
     "binaryjs": "^0.2.1",
     "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "path": "^0.12.7",
     "pug": "^2.0.0-rc.4",
+    "recordrtc-socketio": "^1.0.6",
+    "socket.io": "^2.1.0",
+    "socket.io-stream": "^0.9.1",
     "wav": "^1.0.1",
     "winston": "^2.4.0",
     "ws": "^4.0.0"
