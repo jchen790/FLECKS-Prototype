@@ -1,3 +1,10 @@
+// Logging enums
+var LOG = {
+    Error: 0,
+    Info: 1,
+    Debug: 2
+};
+
 var socketio = io();
 
 var username = prompt('username?');
@@ -7,11 +14,13 @@ var mediaStream = null;
 socketio.emit('new_user', username);
 
 socketio.on('connect', function(message) {
-    console.log('connected');
+    console.log('Connected');
 
     socketio.on('user_acked', function (message) {
         $('#server-message').text(message);
         $('#start-recording').prop("disabled", false);
+
+        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " is ready to record"));
     });
 
     var recordAudio;
@@ -37,6 +46,8 @@ socketio.on('connect', function(message) {
         }, function(error) {
             alert('Recording error - ' + JSON.stringify(error));
         });
+
+        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
     });
 
     $('#stop-recording').click(function() {
@@ -59,10 +70,13 @@ socketio.on('connect', function(message) {
                 }
             });
         });
+
+        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " stopped recording"));
     });
 
     $('#request').click(function () {
         socketio.emit('request_response', 'request');
+        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " requested an audio response from server"));
     });
 
     ss(socketio).on('audio-stream', function(stream, data) {
@@ -77,11 +91,37 @@ socketio.on('connect', function(message) {
             let audioResponse = document.getElementById('server-response');
             audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
             audioResponse.play();
+            socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
         });
     });
 });
 
+function writeToLog(type, logString)
+{
+    let tempDate = new Date();
+    // TODO - update to school's locale
+    let currDate = tempDate.toLocaleString("en-US");
 
+    let typeString = "";
+    if (type === LOG.Error)
+    {
+        typeString = "ERROR";
+    }
+    else if (type === LOG.Info)
+    {
+        typeString = "INFO";
+    }
+    else if (type === LOG.Debug)
+    {
+        typeString = "DEBUG";
+    }
+    else
+    {
+        typeString = "LOG";
+    }
+
+    return currDate + " --- " + typeString + " --- " + logString + ' \n';
+}
 
 
 
