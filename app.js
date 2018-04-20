@@ -17,7 +17,7 @@ const io = require('socket.io')(http);
 const ss = require('socket.io-stream');
 
 // Choose which local port
-const port = 3000;
+const port = 8080;
 
 // Serve html file
 app.get('/', function (req, res) {
