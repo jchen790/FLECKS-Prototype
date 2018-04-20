@@ -3,6 +3,7 @@ const http = require('http').Server(app);
 const path = require("path");
 const fs = require("fs");
 const io = require('socket.io')(http);
+const ss = require('socket.io-stream');
 
 // Choose which local port
 const port = 3000;
@@ -22,6 +23,11 @@ app.get('/recordrtc/RecordRTC.js', function (req, res) {
     res.sendFile(__dirname + '/recordrtc/RecordRTC.js');
 });
 
+// Serve streaming js
+app.get('/socket.io-stream.js', function (req, res) {
+    res.sendFile(__dirname + '/socket.io-stream.js');
+});
+
 io.sockets.on('connection', function (socket) {
     console.log('> a user connected');
 
@@ -38,6 +44,21 @@ io.sockets.on('connection', function (socket) {
 
         writeAudioFile(data.audio.dataURL, fileName + '.wav');
     });
+
+    // Send audio response
+    socket.on('request_response', function (data) {
+        console.log('> audio response requested');
+
+        let stream = ss.createStream();
+        let fileName = __dirname + '/server-audio0.wav';
+
+        console.log(fileName);
+
+        ss(socket).emit('audio-stream', stream, {name: fileName});
+        fs.createReadStream(fileName).pipe(stream);
+
+        console.log('after socketio-stream');
+    });
 });
 
 http.listen(port, function () {
@@ -47,7 +68,6 @@ http.listen(port, function () {
 function writeAudioFile(dataURL, fileName)
 {
     let filePath = './audio-recordings/' + fileName;
-    let fileID = 2;
     let fileBuffer;
     dataURL = dataURL.split(',').pop();
     fileBuffer = new Buffer(dataURL, 'base64');
