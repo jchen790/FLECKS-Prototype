@@ -4,3 +4,30 @@
 4/20/2018, 4:43:36 AM --- INFO --- Session log saved at ./logs/session-1524213813432.log 
 4/20/2018, 4:43:36 AM --- DEBUG --- A user connected 
 4/20/2018, 4:43:40 AM --- INFO --- q1 is now connected 
+4/20/2018, 4:45:33 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:45:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:47:33 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:47:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:48:03 AM --- INFO --- q1 has disconnected 
+4/20/2018, 4:48:03 AM --- INFO --- Session log saved at ./logs/session-1524213816628.log 
+4/20/2018, 4:48:03 AM --- DEBUG --- A user connected 
+4/20/2018, 4:48:06 AM --- INFO --- q is now connected 
+4/20/2018, 4:49:33 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:49:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:50:03 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:51:33 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:51:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:52:03 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:53:33 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:53:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:54:03 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:55:33 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:55:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:56:03 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 4:57:12 AM --- INFO --- q has disconnected 
+4/20/2018, 4:57:12 AM --- INFO --- Session log saved at ./logs/session-1524214083347.log 
+4/20/2018, 4:57:30 AM --- DEBUG --- A user connected 
+4/20/2018, 4:57:30 AM --- INFO --- 2 is now connected 
+4/20/2018, 4:57:30 AM --- INFO --- 2 requested an audio response from server 
+4/20/2018, 4:57:30 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 4:57:30 AM --- DEBUG --- Server has written to the audio to stream 

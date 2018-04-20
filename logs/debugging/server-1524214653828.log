@@ -1,0 +1,13 @@
+4/20/2018, 4:57:33 AM --- DEBUG --- Server is now listening 
+4/20/2018, 4:57:35 AM --- DEBUG --- A user connected 
+4/20/2018, 4:57:36 AM --- INFO --- undefined has disconnected 
+4/20/2018, 4:57:36 AM --- INFO --- Session log saved at ./logs/session-1524214653828.log 
+4/20/2018, 4:57:36 AM --- DEBUG --- A user connected 
+4/20/2018, 4:57:39 AM --- INFO --- 1 is now connected 
+4/20/2018, 4:57:45 AM --- INFO --- Audio file is saved at ./audio-recordings/1-1524214665922.wav 
+4/20/2018, 4:57:50 AM --- INFO --- 1 requested an audio response from server 
+4/20/2018, 4:57:50 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 4:57:50 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 4:57:51 AM --- INFO --- 1 requested an audio response from server 
+4/20/2018, 4:57:51 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 4:57:51 AM --- DEBUG --- Server has written to the audio to stream 

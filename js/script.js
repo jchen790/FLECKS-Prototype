@@ -7,6 +7,7 @@ var LOG = {
 
 var socketio = io();
 var mediaStream = null;
+var isRecording = false;
 
 // Get username - will be used for logs and file names
 var username = "";
@@ -31,60 +32,62 @@ socketio.on('connect', function(message) {
 
     socketio.on('user_acked', function (message) {
         $('#server-message').text(message);
-        $('#start-recording').prop("disabled", false);
+        $('#recording').prop("disabled", false);
 
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " is ready to record"));
     });
 
     var recordAudio;
 
-    $('#start-recording').click(function () {
-        $('#start-recording').prop("disabled", true);
-        navigator.getUserMedia({
-            audio: true
-        }, function (stream) {
-            mediaStream = stream;
+    $('#recording').click(function () {
+        isRecording = !isRecording;
+        if(isRecording)
+        {
+            navigator.getUserMedia({
+                audio: true
+            }, function (stream) {
+                mediaStream = stream;
 
-            recordAudio = RecordRTC(stream, {
-                type: 'audio', 
-                recorderType: StereoAudioRecorder,
-                onAudioProcessStarted: function() {}
+                recordAudio = RecordRTC(stream, {
+                    type: 'audio', 
+                    recorderType: StereoAudioRecorder,
+                    onAudioProcessStarted: function() {}
+                });
+
+                recordAudio.startRecording();
+
+                $('#stop-recording').prop("disabled", false);
+            }, function(error) {
+                alert('Recording error - ' + JSON.stringify(error));
+                socketio.emit('log', writeToLog(LOG.Error, "Cannot use getUserMedia()"));
             });
 
-            recordAudio.startRecording();
-
-            $('#stop-recording').prop("disabled", false);
-        }, function(error) {
-            alert('Recording error - ' + JSON.stringify(error));
-            socketio.emit('log', writeToLog(LOG.Error, "Cannot use getUserMedia()"));
-        });
-
-        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
-    });
-
-    $('#stop-recording').click(function() {
-        $('#start-recording').prop("disabled", false);
-        $('#stop-recording').prop("disabled", true);
-
-        recordAudio.stopRecording(function() {
-            recordAudio.getDataURL(function(audioDataURL) {
-                var files = {
-                    audio: {
-                        type: recordAudio.getBlob().type || 'audio/wav',
-                        dataURL: audioDataURL
+            $('#recording-icon').text('stop');
+            socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
+        }
+        else
+        {
+            recordAudio.stopRecording(function() {
+                recordAudio.getDataURL(function(audioDataURL) {
+                    var files = {
+                        audio: {
+                            type: recordAudio.getBlob().type || 'audio/wav',
+                            dataURL: audioDataURL
+                        }
+                    };
+                    
+                    $('#recording-icon').text('mic');
+                    socketio.emit('audio', files);
+                    if (mediaStream)
+                    {
+                        mediaStream.stop();
                     }
-                };
-
-                socketio.emit('audio', files);
-                if (mediaStream)
-                {
-                    mediaStream.stop();
-                }
+                });
             });
-        });
-
-        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " stopped recording"));
-        socketio.emit('end_session', 0);
+    
+            socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " stopped recording"));
+            socketio.emit('end_session', 0);
+        }
     });
 
     $('#request').click(function () {
