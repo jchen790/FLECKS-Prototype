@@ -74,7 +74,7 @@ io.sockets.on('connection', function (socket) {
         writeAudioFile(data.audio.dataURL, fileName + '.wav');
     });
 
-    // Send audio response upon request to specific client
+    // Send audio response to all clients upon request
     socket.on('request_response', function (data) {
         if(DEBUG)
         {
@@ -139,22 +139,23 @@ http.listen(port, function () {
     writeToServerLog(LOG.Debug, "Server is now listening");
 });
 
+// Writes incoming data to an audio file
 function writeAudioFile(dataURL, fileName)
 {
-    let filePath = './audio-recordings/' + fileName;
-    let fileBuffer;
+    let audioFileName = './audio-recordings/' + fileName;
     dataURL = dataURL.split(',').pop();
-    fileBuffer = new Buffer(dataURL, 'base64');
-    fs.writeFileSync(filePath, fileBuffer);
+    let fileBuffer = new Buffer(dataURL, 'base64');
+    fs.writeFileSync(audioFileName, fileBuffer);
 
     if(DEBUG)
     {
-        console.log('> audio file saved as ' + filePath);
+        console.log('> audio file saved as ' + audioFileName);
     }
-    writeToServerLog(LOG.Info, "Audio file is saved at " + filePath);
-    writeToSessionLog(LOG.Info, "Audio file is saved at " + filePath);
+    writeToServerLog(LOG.Info, "Audio file is saved at " + audioFileName);
+    writeToSessionLog(LOG.Info, "Audio file is saved at " + audioFileName);
 }
 
+// Writes data to a server log (primarily for debugging the server code)
 function writeToServerLog(type, logString)
 {
     let tempDate = new Date();
@@ -182,6 +183,7 @@ function writeToServerLog(type, logString)
     serverLogFileWriteStream.write(currDate + " --- " + typeString + " --- " + logString + ' \n');
 }
 
+// Writes data to the session log
 function writeToSessionLog(type, logString)
 {
     let tempDate = new Date();
@@ -209,6 +211,7 @@ function writeToSessionLog(type, logString)
     sessionLogFileWriteStream.write(currDate + " --- " + typeString + " --- " + logString + ' \n');
 }
 
+// Ends the session log if there are no more clients, resets it for the next connecting clients
 function resetSessionLog(numUsers)
 {
     if (numUsers === 0)
