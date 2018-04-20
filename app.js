@@ -39,6 +39,11 @@ app.get('/socket.io-stream.js', function (req, res) {
     res.sendFile(__dirname + '/js/socket.io-stream.js');
 });
 
+// Serve stylesheet
+app.get('/styles.css', function (req, res) {
+    res.sendFile(__dirname + '/styles.css');
+})
+
 // Set up write streams for logs
 let sessionLogFileName = './logs/session-' + Date.now() + '.log';
 let sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName);

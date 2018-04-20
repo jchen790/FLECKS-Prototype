@@ -6,12 +6,25 @@ var LOG = {
 };
 
 var socketio = io();
-
-var username = prompt('username?');
-
 var mediaStream = null;
 
-socketio.emit('new_user', username);
+// Get username - will be used for logs and file names
+var username = "";
+$('#connect').click(function() {
+    let tmp = $('#username').val();
+    tmp = tmp.replace(/\s/g,'');
+    if(tmp == "")
+    {
+        $('#username-error').text("Please enter a valid name");
+    }
+    else
+    {
+        username = tmp;
+        socketio.emit('new_user', username);
+        $('#signin').hide();
+        $('#main').show();
+    }
+});
 
 socketio.on('connect', function(message) {
     console.log('Connected');
