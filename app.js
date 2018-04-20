@@ -57,21 +57,26 @@ let serverLogFileWriteStream = fs.createWriteStream(serverLogFileName);
 
 // Use socket.io and socket.io-stream libraries to stream and emit data
 io.sockets.on('connection', function (socket) {
+    socket.username = "";
     connectedUsers++;
-    if (DEBUG)
-    {
+    audioResponseInterval.unref();
+
+    if (DEBUG) {
         console.log('> a user connected');
     }
+
     writeToServerLog(LOG.Debug, "A user connected");
 
     // New user connected - log user
     socket.on('new_user', function (username) {
         socket.username = username;
         socket.emit('user_acked', 'You are connected!');
-        if(DEBUG)
-        {
+        audioResponseInterval.ref();
+
+        if (DEBUG) {
             console.log('>>> ' + socket.username + ' has connected');
         }
+
         writeToServerLog(LOG.Info, socket.username + " is now connected");
         writeToSessionLog(LOG.Info, socket.username + " is now connected");
     });
@@ -86,10 +91,10 @@ io.sockets.on('connection', function (socket) {
 
     // Send audio response to all clients upon request
     socket.on('request_response', function (data) {
-        if(DEBUG)
-        {
+        if (DEBUG) {
             console.log('> audio response requested');
         }
+
         writeToServerLog(LOG.Info, socket.username + " requested an audio response from server");
 
         let stream = ss.createStream();
@@ -97,16 +102,15 @@ io.sockets.on('connection', function (socket) {
 
         writeToServerLog(LOG.Debug, "Server is returning " + fileName);
 
-        ss(socket).emit('audio-stream', stream, {name: fileName});
+        ss(socket).emit('audio-stream', stream, { name: fileName });
         fs.createReadStream(fileName).pipe(stream);
 
         // broadcast audio to all other clients
-        for(var i in io.sockets.connected) {
-            if (io.sockets.connected[i].id != socket.id)
-            {
+        for (var i in io.sockets.connected) {
+            if (io.sockets.connected[i].id != socket.id) {
                 let clientSocket = io.sockets.connected[i];
                 let stream1 = ss.createStream();
-                ss(clientSocket).emit('audio-stream', stream1, {name: fileName});
+                ss(clientSocket).emit('audio-stream', stream1, { name: fileName });
                 fs.createReadStream(fileName).pipe(stream1);
             }
         }
@@ -116,14 +120,18 @@ io.sockets.on('connection', function (socket) {
 
     // Send audio response to all clients every 2 min
     var audioResponseInterval = setInterval(() => {
+        // don't start timer if not signed in yet
+        if (!socket.username) {
+            return;
+        }
+
         // broadcast audio to all other clients
-        for(var i in io.sockets.connected) {
-            if (io.sockets.connected[i].id != socket.id)
-            {
+        for (var i in io.sockets.connected) {
+            if (io.sockets.connected[i].id != socket.id) {
                 let clientSocket = io.sockets.connected[i];
                 let stream = ss.createStream();
                 let fileName = __dirname + '/server-audio0.wav';
-                ss(clientSocket).emit('audio-stream', stream, {name: fileName});
+                ss(clientSocket).emit('audio-stream', stream, { name: fileName });
                 fs.createReadStream(fileName).pipe(stream);
             }
         }
@@ -150,43 +158,37 @@ http.listen(port, function () {
 });
 
 // Writes incoming data to an audio file
-function writeAudioFile(dataURL, fileName)
-{
+function writeAudioFile(dataURL, fileName) {
     let audioFileName = './audio-recordings/' + fileName;
     dataURL = dataURL.split(',').pop();
     let fileBuffer = new Buffer(dataURL, 'base64');
     fs.writeFileSync(audioFileName, fileBuffer);
 
-    if(DEBUG)
-    {
+    if (DEBUG) {
         console.log('> audio file saved as ' + audioFileName);
     }
+
     writeToServerLog(LOG.Info, "Audio file is saved at " + audioFileName);
     writeToSessionLog(LOG.Info, "Audio file is saved at " + audioFileName);
 }
 
 // Writes data to a server log (primarily for debugging the server code)
-function writeToServerLog(type, logString)
-{
+function writeToServerLog(type, logString) {
     let tempDate = new Date();
     // TODO - update to school's locale
     let currDate = tempDate.toLocaleString("en-US");
 
     let typeString = "";
-    if (type === LOG.Error)
-    {
+    if (type === LOG.Error) {
         typeString = "ERROR";
     }
-    else if (type === LOG.Info)
-    {
+    else if (type === LOG.Info) {
         typeString = "INFO";
     }
-    else if (type === LOG.Debug)
-    {
+    else if (type === LOG.Debug) {
         typeString = "DEBUG";
     }
-    else
-    {
+    else {
         typeString = "LOG";
     }
 
@@ -194,27 +196,22 @@ function writeToServerLog(type, logString)
 }
 
 // Writes data to the session log
-function writeToSessionLog(type, logString)
-{
+function writeToSessionLog(type, logString) {
     let tempDate = new Date();
     // TODO - update to school's locale
     let currDate = tempDate.toLocaleString("en-US");
 
     let typeString = "";
-    if (type === LOG.Error)
-    {
+    if (type === LOG.Error) {
         typeString = "ERROR";
     }
-    else if (type === LOG.Info)
-    {
+    else if (type === LOG.Info) {
         typeString = "INFO";
     }
-    else if (type === LOG.Debug)
-    {
+    else if (type === LOG.Debug) {
         typeString = "DEBUG";
     }
-    else
-    {
+    else {
         typeString = "LOG";
     }
 
@@ -222,16 +219,14 @@ function writeToSessionLog(type, logString)
 }
 
 // Ends the session log if there are no more clients, resets it for the next connecting clients
-function resetSessionLog(numUsers)
-{
-    if (numUsers === 0)
-    {
+function resetSessionLog(numUsers) {
+    if (numUsers === 0) {
         writeToSessionLog(LOG.Info, "Session has ended, there are no more participants");
         sessionLogFileWriteStream.end();
         writeToServerLog(LOG.Info, "Session log saved at " + sessionLogFileName);
 
         // Start new session log file stream
         sessionLogFileName = './logs/session-' + Date.now() + '.log';
-        sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName); 
+        sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName);
     }
 }

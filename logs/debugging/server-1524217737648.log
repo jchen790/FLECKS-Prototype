@@ -5,3 +5,24 @@
 4/20/2018, 5:49:06 AM --- INFO --- p requested an audio response from server 
 4/20/2018, 5:49:06 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
 4/20/2018, 5:49:06 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 5:50:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:52:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:54:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:56:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:58:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:59:54 AM --- INFO --- p has disconnected 
+4/20/2018, 5:59:54 AM --- INFO --- Session log saved at ./logs/session-1524217737648.log 
+4/20/2018, 5:59:54 AM --- DEBUG --- A user connected 
+4/20/2018, 5:59:58 AM --- INFO --- r is now connected 
+4/20/2018, 6:00:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 6:01:54 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 6:02:22 AM --- DEBUG --- A user connected 
+4/20/2018, 6:02:23 AM --- INFO --- r is now connected 
+4/20/2018, 6:02:28 AM --- INFO --- r requested an audio response from server 
+4/20/2018, 6:02:28 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 6:02:28 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 6:02:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 6:03:54 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 6:04:22 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 6:04:59 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 6:05:54 AM --- INFO --- Server audio response sent to clients 

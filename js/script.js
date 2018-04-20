@@ -11,15 +11,13 @@ var isRecording = false;
 
 // Get username - will be used for logs and file names
 var username = "";
-$('#connect').click(function() {
+$('#connect').click(function () {
     let tmp = $('#username').val();
-    tmp = tmp.replace(/\s/g,'');
-    if(tmp == "")
-    {
+    tmp = tmp.replace(/\s/g, '');
+    if (tmp == "") {
         $('#username-error').text("Please enter a valid name");
     }
-    else
-    {
+    else {
         username = tmp;
         socketio.emit('new_user', username);
         $('#signin').hide();
@@ -27,9 +25,11 @@ $('#connect').click(function() {
     }
 });
 
-socketio.on('connect', function(message) {
+// Connected socket
+socketio.on('connect', function (message) {
     console.log('Connected');
 
+    // User has been acknowledged
     socketio.on('user_acked', function (message) {
         $('#server-message').text(message);
         $('#recording').prop("disabled", false);
@@ -39,25 +39,25 @@ socketio.on('connect', function(message) {
 
     var recordAudio;
 
+    // Toggle recording mode - save audio when recording, stream all saved audio when stopped
     $('#recording').click(function () {
         isRecording = !isRecording;
-        if(isRecording)
-        {
+        if (isRecording) {
             navigator.getUserMedia({
                 audio: true
             }, function (stream) {
                 mediaStream = stream;
 
                 recordAudio = RecordRTC(stream, {
-                    type: 'audio', 
+                    type: 'audio',
                     recorderType: StereoAudioRecorder,
-                    onAudioProcessStarted: function() {}
+                    onAudioProcessStarted: function () { }
                 });
 
                 recordAudio.startRecording();
 
                 $('#stop-recording').prop("disabled", false);
-            }, function(error) {
+            }, function (error) {
                 alert('Recording error - ' + JSON.stringify(error));
                 socketio.emit('log', writeToLog(LOG.Error, "Cannot use getUserMedia()"));
             });
@@ -67,46 +67,46 @@ socketio.on('connect', function(message) {
             $('#recording-text').text('Recording in progress...');
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
         }
-        else
-        {
-            recordAudio.stopRecording(function() {
-                recordAudio.getDataURL(function(audioDataURL) {
+        else {
+            recordAudio.stopRecording(function () {
+                recordAudio.getDataURL(function (audioDataURL) {
                     var files = {
                         audio: {
                             type: recordAudio.getBlob().type || 'audio/wav',
                             dataURL: audioDataURL
                         }
                     };
-                    
+
                     $('#recording-icon').text('mic');
                     $('#recording-text').text('');
                     socketio.emit('audio', files);
-                    if (mediaStream)
-                    {
+                    if (mediaStream) {
                         mediaStream.stop();
                     }
                 });
             });
-    
+
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " stopped recording"));
             socketio.emit('end_session', 0);
         }
     });
 
+    // Manually request feedback from "virtual agents"
     $('#request').click(function () {
         socketio.emit('request_response', 'request');
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " requested an audio response from server"));
     });
 
-    ss(socketio).on('audio-stream', function(stream, data) {
+    // Receive streamed audio from server
+    ss(socketio).on('audio-stream', function (stream, data) {
         console.log('received data');
 
         parts = [];
-        stream.on('data', function(chunk) {
+        stream.on('data', function (chunk) {
             parts.push(chunk);
         });
 
-        stream.on('end', function() {
+        stream.on('end', function () {
             let audioResponse = document.getElementById('server-response');
             audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
             audioResponse.play();
@@ -115,27 +115,23 @@ socketio.on('connect', function(message) {
     });
 });
 
-function writeToLog(type, logString)
-{
+// Format strings for logs
+function writeToLog(type, logString) {
     let tempDate = new Date();
     // TODO - update to school's locale
     let currDate = tempDate.toLocaleString("en-US");
 
     let typeString = "";
-    if (type === LOG.Error)
-    {
+    if (type === LOG.Error) {
         typeString = "ERROR";
     }
-    else if (type === LOG.Info)
-    {
+    else if (type === LOG.Info) {
         typeString = "INFO";
     }
-    else if (type === LOG.Debug)
-    {
+    else if (type === LOG.Debug) {
         typeString = "DEBUG";
     }
-    else
-    {
+    else {
         typeString = "LOG";
     }
 
