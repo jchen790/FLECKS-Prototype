@@ -43,6 +43,7 @@ socketio.on('connect', function (message) {
     $('#recording').click(function () {
         isRecording = !isRecording;
         if (isRecording) {
+            $('#audio-request').prop('disabled', true);
             navigator.getUserMedia({
                 audio: true
             }, function (stream) {
@@ -68,6 +69,7 @@ socketio.on('connect', function (message) {
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
         }
         else {
+            $('#audio-request').prop('disabled', false);
             recordAudio.stopRecording(function () {
                 recordAudio.getDataURL(function (audioDataURL) {
                     var files = {
@@ -108,6 +110,29 @@ socketio.on('connect', function (message) {
 
         stream.on('end', function () {
             let audioResponse = document.getElementById('server-response');
+            audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+            audioResponse.play();
+            socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
+        });
+    });
+
+    // Mamually request final audio file
+    $('#audio-request').click(function () {
+        socketio.emit('request_final', 'request');
+        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " requested their final audio file"));
+    });
+
+    // Receive final audio file from server
+    ss(socketio).on('file', function (stream, data) {
+        console.log('received data');
+
+        parts = [];
+        stream.on('data', function (chunk) {
+            parts.push(chunk);
+        });
+
+        stream.on('end', function () {
+            let audioResponse = document.getElementById('final-audio');
             audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
             audioResponse.play();
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));

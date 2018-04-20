@@ -116,6 +116,25 @@ io.sockets.on('connection', function (socket) {
         writeToServerLog(LOG.Debug, "Server has written to the audio to stream");
     });
 
+    // Send final audio to a client upon request
+    socket.on('request_final', function (data) {
+        if (DEBUG) {
+            console.log('> audio file requested');
+        }
+
+        writeToServerLog(LOG.Info, socket.username + " requested an audio response from server");
+
+        let stream = ss.createStream();
+        let fileName = __dirname + '/audio-recordings/' + socket.audioFileName;
+
+        writeToServerLog(LOG.Debug, "Server is returning " + fileName);
+
+        ss(socket).emit('file', stream, { name: fileName });
+        fs.createReadStream(fileName).pipe(stream);
+
+        writeToServerLog(LOG.Debug, "Server has written to the audio to stream");
+    });
+
     // Send audio response to all clients every 2 min
     var audioResponseInterval = setInterval(() => {
         // don't start timer if not signed in yet

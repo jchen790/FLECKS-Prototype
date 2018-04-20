@@ -1,0 +1,24 @@
+4/20/2018, 7:12:27 AM --- DEBUG --- Server is now listening 
+4/20/2018, 7:12:27 AM --- DEBUG --- A user connected 
+4/20/2018, 7:12:31 AM --- INFO ---  has disconnected 
+4/20/2018, 7:12:31 AM --- INFO --- Session log saved at ./logs/session-1524222747129.log 
+4/20/2018, 7:12:32 AM --- DEBUG --- A user connected 
+4/20/2018, 7:12:35 AM --- INFO --- p is now connected 
+4/20/2018, 7:12:40 AM --- INFO --- Audio file is saved at ./audio-recordings/p-1524222760097.wav 
+4/20/2018, 7:12:51 AM --- INFO --- p requested an audio response from server 
+4/20/2018, 7:12:51 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/audio-recordings/p-1524222760097.wav 
+4/20/2018, 7:12:51 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 7:14:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 7:16:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 7:17:05 AM --- INFO --- p has disconnected 
+4/20/2018, 7:17:05 AM --- INFO --- Session log saved at ./logs/session-1524222751883.log 
+4/20/2018, 7:17:05 AM --- DEBUG --- A user connected 
+4/20/2018, 7:17:08 AM --- INFO --- p is now connected 
+4/20/2018, 7:17:16 AM --- INFO --- Audio file is saved at ./audio-recordings/p-1524223036784.wav 
+4/20/2018, 7:17:17 AM --- INFO --- p requested an audio response from server 
+4/20/2018, 7:17:17 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/audio-recordings/p-1524223036784.wav 
+4/20/2018, 7:17:17 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 7:17:23 AM --- INFO --- Audio file is saved at ./audio-recordings/p-1524223043534.wav 
+4/20/2018, 7:17:24 AM --- INFO --- p requested an audio response from server 
+4/20/2018, 7:17:24 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/audio-recordings/p-1524223043534.wav 
+4/20/2018, 7:17:24 AM --- DEBUG --- Server has written to the audio to stream 
