@@ -1,0 +1,13 @@
+4/20/2018, 5:32:13 AM --- DEBUG --- Server is now listening 
+4/20/2018, 5:32:13 AM --- DEBUG --- A user connected 
+4/20/2018, 5:32:16 AM --- INFO --- undefined has disconnected 
+4/20/2018, 5:32:16 AM --- INFO --- Session log saved at ./logs/session-1524216733019.log 
+4/20/2018, 5:32:16 AM --- DEBUG --- A user connected 
+4/20/2018, 5:32:26 AM --- INFO --- testing is now connected 
+4/20/2018, 5:34:06 AM --- INFO --- testing has disconnected 
+4/20/2018, 5:34:06 AM --- INFO --- Session log saved at ./logs/session-1524216736704.log 
+4/20/2018, 5:34:06 AM --- DEBUG --- A user connected 
+4/20/2018, 5:34:12 AM --- INFO --- testing-again is now connected 
+4/20/2018, 5:34:13 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:34:16 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:34:27 AM --- INFO --- Audio file is saved at ./audio-recordings/testing-again-1524216867006.wav 

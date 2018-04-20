@@ -1,0 +1,192 @@
+4/20/2018, 5:01:06 AM --- DEBUG --- Server is now listening 
+4/20/2018, 5:01:06 AM --- DEBUG --- A user connected 
+4/20/2018, 5:01:09 AM --- INFO --- undefined has disconnected 
+4/20/2018, 5:01:09 AM --- INFO --- Session log saved at ./logs/session-1524214866424.log 
+4/20/2018, 5:01:09 AM --- DEBUG --- A user connected 
+4/20/2018, 5:01:11 AM --- INFO --- 3 is now connected 
+4/20/2018, 5:01:50 AM --- INFO --- 3 has disconnected 
+4/20/2018, 5:01:50 AM --- INFO --- Session log saved at ./logs/session-1524214869203.log 
+4/20/2018, 5:01:50 AM --- DEBUG --- A user connected 
+4/20/2018, 5:02:34 AM --- INFO --- undefined has disconnected 
+4/20/2018, 5:02:34 AM --- INFO --- Session log saved at ./logs/session-1524214910788.log 
+4/20/2018, 5:02:35 AM --- DEBUG --- A user connected 
+4/20/2018, 5:02:37 AM --- INFO --- e is now connected 
+4/20/2018, 5:03:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:03:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:03:50 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:04:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:04:55 AM --- INFO --- e has disconnected 
+4/20/2018, 5:04:55 AM --- INFO --- Session log saved at ./logs/session-1524214954977.log 
+4/20/2018, 5:04:55 AM --- DEBUG --- A user connected 
+4/20/2018, 5:05:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:05:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:05:50 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:06:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:06:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:07:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:07:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:07:11 AM --- INFO --- undefined has disconnected 
+4/20/2018, 5:07:11 AM --- INFO --- Session log saved at ./logs/session-1524215095255.log 
+4/20/2018, 5:07:11 AM --- DEBUG --- A user connected 
+4/20/2018, 5:07:18 AM --- INFO --- o is now connected 
+4/20/2018, 5:07:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:08:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:08:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:09:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:09:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:09:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:09:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:10:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:10:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:11:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:11:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:11:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:11:32 AM --- INFO --- o has disconnected 
+4/20/2018, 5:11:32 AM --- INFO --- Session log saved at ./logs/session-1524215231506.log 
+4/20/2018, 5:11:32 AM --- DEBUG --- A user connected 
+4/20/2018, 5:11:34 AM --- INFO --- 3 is now connected 
+4/20/2018, 5:11:36 AM --- INFO --- Audio file is saved at ./audio-recordings/3-1524215496542.wav 
+4/20/2018, 5:11:38 AM --- INFO --- Audio file is saved at ./audio-recordings/3-1524215498641.wav 
+4/20/2018, 5:11:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:12:10 AM --- INFO --- 3 has disconnected 
+4/20/2018, 5:12:10 AM --- INFO --- Session log saved at ./logs/session-1524215492742.log 
+4/20/2018, 5:12:10 AM --- DEBUG --- A user connected 
+4/20/2018, 5:12:13 AM --- INFO --- i is now connected 
+4/20/2018, 5:12:15 AM --- INFO --- Audio file is saved at ./audio-recordings/i-1524215535659.wav 
+4/20/2018, 5:12:17 AM --- INFO --- Audio file is saved at ./audio-recordings/i-1524215537556.wav 
+4/20/2018, 5:12:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:12:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:13:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:13:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:13:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:13:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:13:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:13:55 AM --- INFO --- i has disconnected 
+4/20/2018, 5:13:55 AM --- INFO --- Session log saved at ./logs/session-1524215530367.log 
+4/20/2018, 5:13:56 AM --- DEBUG --- A user connected 
+4/20/2018, 5:14:00 AM --- INFO --- i is now connected 
+4/20/2018, 5:14:03 AM --- INFO --- Audio file is saved at ./audio-recordings/i-1524215643467.wav 
+4/20/2018, 5:14:05 AM --- INFO --- i requested an audio response from server 
+4/20/2018, 5:14:05 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 5:14:05 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 5:14:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:14:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:14:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:15:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:15:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:15:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:15:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:15:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:15:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:16:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:16:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:16:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:17:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:17:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:17:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:17:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:17:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:17:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:18:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:18:13 AM --- INFO --- i has disconnected 
+4/20/2018, 5:18:13 AM --- INFO --- Session log saved at ./logs/session-1524215635948.log 
+4/20/2018, 5:18:14 AM --- DEBUG --- A user connected 
+4/20/2018, 5:18:15 AM --- INFO --- e is now connected 
+4/20/2018, 5:18:19 AM --- INFO --- Audio file is saved at ./audio-recordings/e-1524215899534.wav 
+4/20/2018, 5:18:25 AM --- INFO --- e requested an audio response from server 
+4/20/2018, 5:18:25 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/server-audio0.wav 
+4/20/2018, 5:18:25 AM --- DEBUG --- Server has written to the audio to stream 
+4/20/2018, 5:18:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:18:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:19:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:19:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:19:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:19:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:19:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:19:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:20:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:20:14 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:20:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:20:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:21:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:21:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:21:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:21:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:21:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:21:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:22:04 AM --- INFO --- e has disconnected 
+4/20/2018, 5:22:04 AM --- INFO --- Session log saved at ./logs/session-1524215893865.log 
+4/20/2018, 5:22:04 AM --- DEBUG --- A user connected 
+4/20/2018, 5:22:06 AM --- INFO --- 4 is now connected 
+4/20/2018, 5:22:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:22:14 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:22:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:22:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:23:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:23:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:23:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:23:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:23:48 AM --- INFO --- 4 has disconnected 
+4/20/2018, 5:23:48 AM --- INFO --- Session log saved at ./logs/session-1524216124279.log 
+4/20/2018, 5:23:48 AM --- DEBUG --- A user connected 
+4/20/2018, 5:23:50 AM --- INFO --- 3 is now connected 
+4/20/2018, 5:23:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:23:54 AM --- INFO --- Audio file is saved at ./audio-recordings/3-1524216234797.wav 
+4/20/2018, 5:23:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:24:04 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:24:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:24:14 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:24:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:24:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:25:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:25:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:25:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:25:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:25:36 AM --- INFO --- 3 has disconnected 
+4/20/2018, 5:25:36 AM --- INFO --- Session log saved at ./logs/session-1524216228635.log 
+4/20/2018, 5:25:36 AM --- DEBUG --- A user connected 
+4/20/2018, 5:25:39 AM --- INFO --- r is now connected 
+4/20/2018, 5:25:48 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:25:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:25:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:26:04 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:26:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:26:14 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:26:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:26:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:48 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:27:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:28:04 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:28:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:28:14 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:28:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:28:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:48 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:29:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:30:04 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:30:10 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:30:14 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:30:35 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:30:55 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:06 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:09 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:11 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:32 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:36 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:48 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:51 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:31:56 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:32:04 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 5:32:10 AM --- INFO --- Server audio response sent to clients 

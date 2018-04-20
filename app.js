@@ -42,7 +42,12 @@ app.get('/socket.io-stream.js', function (req, res) {
 // Serve stylesheet
 app.get('/styles.css', function (req, res) {
     res.sendFile(__dirname + '/styles.css');
-})
+});
+
+// Serve image
+app.get('/agents.png', function (req, res) {
+    res.sendFile(__dirname + '/agents.png');
+});
 
 // Set up write streams for logs
 let sessionLogFileName = './logs/session-' + Date.now() + '.log';

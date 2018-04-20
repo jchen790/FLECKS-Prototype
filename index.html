@@ -16,38 +16,46 @@
 </head>
 
 <body>
-    <h1>FLECKS Audio Collection Prototype</h1>
+    <div id="title">
+        <h1>FLECKS Audio Collection Prototype</h1>
+    </div>
 
     <div id="signin">
-        <p>What is your name?</p>
+        <label for="username">What is your name?</label>
         <input id="username" type="text">
-        <br>
-        <p>
+        <p class="error">
             <span id="username-error"></span>
         </p>
-        <br>
         <button type="button" class="btn btn-primary" id="connect">Connect</button>
     </div>
 
     <div id="main">
         <p>
             This is a prototype of the audio data collection portion of the FLECKS Project. As students interact with the programming
-            environment (simulate by this client), the environment will record their conversation and send it back to the
+            environment (simulated by this web app), the environment will record their conversation and send it back to the
             server for further analysis.
         </p>
 
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <button id="recording" disabled>
+                    <h2>Record Audio</h2>
+                    <button id="recording" type="button" class="btn btn-primary" disabled>
                         <i id="recording-icon" class="material-icons">mic</i>
                     </button>
+                    <p>
+                        <span id="recording-text"></span>
+                    </p>
                 </div>
                 <div class="col-sm">
-                    <button id="request">request response</button>
+                    <h2>Server Response</h2>
+                    <img src="/agents.png" alt="Virtual Agent Silhouettes"/>
                     <audio id="server-response" controls="controls" controlsList="nofullscreen nodownload noremoteplayback" autoplay>
                         <source src="" type="audio/wav">
                     </audio>
+                    <div>
+                        <button id="request" type="button" class="btn btn-secondary">Request Feedback</button>
+                    </div>
                 </div>
             </div>
         </div>

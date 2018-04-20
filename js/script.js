@@ -62,7 +62,9 @@ socketio.on('connect', function(message) {
                 socketio.emit('log', writeToLog(LOG.Error, "Cannot use getUserMedia()"));
             });
 
+            $('#fin-audio').hide();
             $('#recording-icon').text('stop');
+            $('#recording-text').text('Recording in progress...');
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
         }
         else
@@ -77,6 +79,7 @@ socketio.on('connect', function(message) {
                     };
                     
                     $('#recording-icon').text('mic');
+                    $('#recording-text').text('');
                     socketio.emit('audio', files);
                     if (mediaStream)
                     {
