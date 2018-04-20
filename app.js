@@ -69,11 +69,12 @@ io.sockets.on('connection', function (socket) {
     // Collect audio stream
     socket.on('audio', function (data) {
         let fileName = socket.username + '-' + Date.now();
+        socket.audioFileName = fileName + '.wav';
 
         writeAudioFile(data.audio.dataURL, fileName + '.wav');
     });
 
-    // Send audio response
+    // Send audio response upon request to specific client
     socket.on('request_response', function (data) {
         if(DEBUG)
         {
@@ -89,8 +90,37 @@ io.sockets.on('connection', function (socket) {
         ss(socket).emit('audio-stream', stream, {name: fileName});
         fs.createReadStream(fileName).pipe(stream);
 
+        // broadcast audio to all other clients
+        for(var i in io.sockets.connected) {
+            if (io.sockets.connected[i].id != socket.id)
+            {
+                let clientSocket = io.sockets.connected[i];
+                let stream1 = ss.createStream();
+                ss(clientSocket).emit('audio-stream', stream1, {name: fileName});
+                fs.createReadStream(fileName).pipe(stream1);
+            }
+        }
+
         writeToServerLog(LOG.Debug, "Server has written to the audio to stream");
     });
+
+    // Send audio response to all clients every 2 min
+    var audioResponseInterval = setInterval(() => {
+        // broadcast audio to all other clients
+        for(var i in io.sockets.connected) {
+            if (io.sockets.connected[i].id != socket.id)
+            {
+                let clientSocket = io.sockets.connected[i];
+                let stream = ss.createStream();
+                let fileName = __dirname + '/server-audio0.wav';
+                ss(clientSocket).emit('audio-stream', stream, {name: fileName});
+                fs.createReadStream(fileName).pipe(stream);
+            }
+        }
+
+        writeToServerLog(LOG.Info, "Server audio response sent to clients");
+        writeToSessionLog(LOG.Info, "Server audio response sent to clients");
+    }, 120000);
 
     // Write to log file
     socket.on('log', function (message) {

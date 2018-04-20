@@ -1,0 +1,18 @@
+4/20/2018, 3:47:04 AM --- INFO --- e1 is now connected 
+4/20/2018, 3:47:04 AM --- INFO --- Client e1 is ready to record 
+4/20/2018, 3:47:09 AM --- INFO --- e2 is now connected 
+4/20/2018, 3:47:09 AM --- INFO --- Client e2 is ready to record 
+4/20/2018, 3:47:25 AM --- INFO --- Client e1 requested an audio response from server 
+4/20/2018, 3:47:26 AM --- INFO --- Client e1 received an audio response from server 
+4/20/2018, 3:49:01 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 3:49:01 AM --- INFO --- Client e1 received an audio response from server 
+4/20/2018, 3:49:02 AM --- INFO --- Client e2 received an audio response from server 
+4/20/2018, 3:49:08 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 3:49:08 AM --- INFO --- Client e1 received an audio response from server 
+4/20/2018, 3:49:08 AM --- INFO --- Client e2 received an audio response from server 
+4/20/2018, 3:51:01 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 3:51:01 AM --- INFO --- Client e1 received an audio response from server 
+4/20/2018, 3:51:02 AM --- INFO --- Client e2 received an audio response from server 
+4/20/2018, 3:51:08 AM --- INFO --- Server audio response sent to clients 
+4/20/2018, 3:51:08 AM --- INFO --- Client e1 received an audio response from server 
+4/20/2018, 3:51:08 AM --- INFO --- Client e2 received an audio response from server 

@@ -35,9 +35,7 @@ socketio.on('connect', function(message) {
             recordAudio = RecordRTC(stream, {
                 type: 'audio', 
                 recorderType: StereoAudioRecorder,
-                onAudioProcessStarted: function() {
-
-                }
+                onAudioProcessStarted: function() {}
             });
 
             recordAudio.startRecording();
@@ -45,6 +43,7 @@ socketio.on('connect', function(message) {
             $('#stop-recording').prop("disabled", false);
         }, function(error) {
             alert('Recording error - ' + JSON.stringify(error));
+            socketio.emit('log', writeToLog(LOG.Error, "Cannot use getUserMedia()"));
         });
 
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
