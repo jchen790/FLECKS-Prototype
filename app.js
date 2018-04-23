@@ -19,6 +19,20 @@ const ss = require('socket.io-stream');
 // Choose which local port
 const port = 8080;
 
+var googleTTS = require('google-tts-api');
+
+var x = "yasss queen";
+var testURL = "";
+
+googleTTS('Hello World, I just wanna say ' + x, 'en', 1)   // speed normal = 1 (default), slow = 0.24
+.then(function (url) {
+    testURL = url;
+  console.log(url); // https://translate.google.com/translate_tts?...
+})
+.catch(function (err) {
+  console.error(err.stack);
+});
+
 // Serve html file
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -70,6 +84,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('new_user', function (username) {
         socket.username = username;
         socket.emit('user_acked', 'You are connected!');
+        socket.emit('test', testURL);
 
         if (DEBUG) {
             console.log('>>> ' + socket.username + ' has connected');

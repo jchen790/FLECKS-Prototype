@@ -37,6 +37,12 @@ socketio.on('connect', function (message) {
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " is ready to record"));
     });
 
+    socketio.on('test', function(url) {
+        let audioResponse = document.getElementById('final-audio');
+        audioResponse.src = url;
+        audioResponse.play();
+    });
+
     var recordAudio;
 
     // Toggle recording mode - save audio when recording, stream all saved audio when stopped

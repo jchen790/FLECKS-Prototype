@@ -1,0 +1,14 @@
+4/23/2018, 2:07:54 PM --- DEBUG --- Server is now listening 
+4/23/2018, 2:07:54 PM --- DEBUG --- A user connected 
+4/23/2018, 2:08:05 PM --- INFO ---  has disconnected 
+4/23/2018, 2:08:05 PM --- INFO --- Session log saved at ./logs/session-1524506874535.log 
+4/23/2018, 2:08:05 PM --- DEBUG --- A user connected 
+4/23/2018, 2:08:07 PM --- INFO --- test is now connected 
+4/23/2018, 2:08:24 PM --- INFO --- test has disconnected 
+4/23/2018, 2:08:24 PM --- INFO --- Session log saved at ./logs/session-1524506885667.log 
+4/23/2018, 2:08:24 PM --- DEBUG --- A user connected 
+4/23/2018, 2:08:26 PM --- INFO --- test is now connected 
+4/23/2018, 2:10:05 PM --- INFO --- Server audio response sent to clients 
+4/23/2018, 2:10:24 PM --- INFO --- Server audio response sent to clients 
+4/23/2018, 2:12:05 PM --- INFO --- Server audio response sent to clients 
+4/23/2018, 2:12:24 PM --- INFO --- Server audio response sent to clients 
