@@ -144,6 +144,22 @@ socketio.on('connect', function (message) {
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
         });
     });
+
+    ss(socketio).on('test1', function(stream, data) {
+        console.log('received data');
+
+        parts = [];
+        stream.on('data', function (chunk) {
+            parts.push(chunk);
+        });
+
+        stream.on('end', function () {
+            let audioResponse = document.getElementById('final-audio');
+            audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+            audioResponse.play();
+            socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
+        });
+    })
 });
 
 // Format strings for logs

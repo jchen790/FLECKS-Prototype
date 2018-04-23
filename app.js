@@ -6,20 +6,23 @@ var LOG = {
 };
 var DEBUG = true;
 
-// Checks for number of connected users
+// Server variables
 var connectedUsers = 0;
+const port = 8080;
 
+// Imported packages
+"use strict";
+require('es6-promise').polyfill();
 const app = require('express')();
 const http = require('http').Server(app);
+const httpClient = require('http');
+const https = require('https');
 const path = require("path");
 const fs = require("fs");
 const io = require('socket.io')(http);
 const ss = require('socket.io-stream');
-
-// Choose which local port
-const port = 8080;
-
-var googleTTS = require('google-tts-api');
+const urlParse  = require('url').parse;
+const googleTTS = require('google-tts-api');
 
 var x = "yasss queen";
 var testURL = "";
@@ -72,13 +75,80 @@ let serverLogFileWriteStream = fs.createWriteStream(serverLogFileName);
 
 // Use socket.io and socket.io-stream libraries to stream and emit data
 io.sockets.on('connection', function (socket) {
+    // Writes to local file
+function downloadAudioResponse (url, dest) {
+    return new Promise(function (resolve, reject) 
+    {
+      let info = urlParse(url);
+      let httpClientVar;
+      if (info.protocol === 'https:')
+      {
+        httpClientVar = https;
+      }
+      else
+      {
+          httpClientVar = http;
+      }
+      let options = 
+      {
+        host: info.host,
+        path: info.path
+      };
+  
+      httpClientVar.get(options, function(res) 
+      {
+        // check status code
+        if (res.statusCode !== 200) 
+        {
+            console.log(res.statusCode);
+          reject(new Error('request to ' + url + ' failed'));
+          return;
+        }
+  
+        let file = fs.createWriteStream(dest);
+        file.on('finish', function() 
+        {
+          // close() is async, call resolve after close completes.
+          file.close(resolve);
+        });
+
+        file.on('error', function (err) 
+        {
+          // Delete the file async. (But we don't check the result)
+          fs.unlink(dest);
+          reject(err);
+        });
+  
+        res.pipe(file);
+      })
+      .on('error', function(err) {
+        reject(err);
+      })
+      .end();
+    });
+  }
+
     function testing(time) 
     {
-        googleTTS('Hello World, I just wanna say ' + time, 'en', 1)   // speed normal = 1 (default), slow = 0.24
+        googleTTS('file size of ' + time, 'en', 1)   // speed normal = 1 (default), slow = 0.24
             .then(function (url) {
                 testURL = url;
                 console.log(url); // https://translate.google.com/translate_tts?...
                 socket.emit('test', testURL);
+
+                console.log(url);
+                let responseFileName = './audio-recordings/server-response.mp3';
+                downloadAudioResponse(url, responseFileName);
+            })
+            .then(function () {
+                console.log('download success');
+                let stream = ss.createStream();
+                let responseFileName = './audio-recordings/server-response.mp3';
+
+                // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
+
+                ss(socket).emit('test1', stream, { name: responseFileName });
+                fs.createReadStream(responseFileName).pipe(stream);
             })
             .catch(function (err) {
                 console.error(err.stack);
@@ -283,3 +353,4 @@ function resetSessionLog(numUsers) {
         sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName);
     }
 }
+
