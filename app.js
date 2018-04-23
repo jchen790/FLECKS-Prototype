@@ -25,13 +25,14 @@ var x = "yasss queen";
 var testURL = "";
 
 googleTTS('Hello World, I just wanna say ' + x, 'en', 1)   // speed normal = 1 (default), slow = 0.24
-.then(function (url) {
-    testURL = url;
-  console.log(url); // https://translate.google.com/translate_tts?...
-})
-.catch(function (err) {
-  console.error(err.stack);
-});
+            .then(function (url) {
+                testURL = url;
+                console.log(url); // https://translate.google.com/translate_tts?...
+            })
+            .catch(function (err) {
+                console.error(err.stack);
+            });
+
 
 // Serve html file
 app.get('/', function (req, res) {
@@ -71,6 +72,19 @@ let serverLogFileWriteStream = fs.createWriteStream(serverLogFileName);
 
 // Use socket.io and socket.io-stream libraries to stream and emit data
 io.sockets.on('connection', function (socket) {
+    function testing(time) 
+    {
+        googleTTS('Hello World, I just wanna say ' + time, 'en', 1)   // speed normal = 1 (default), slow = 0.24
+            .then(function (url) {
+                testURL = url;
+                console.log(url); // https://translate.google.com/translate_tts?...
+                socket.emit('test', testURL);
+            })
+            .catch(function (err) {
+                console.error(err.stack);
+            });
+    }
+
     socket.username = "";
     connectedUsers++;
 
@@ -84,7 +98,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('new_user', function (username) {
         socket.username = username;
         socket.emit('user_acked', 'You are connected!');
-        socket.emit('test', testURL);
+        // socket.emit('test', testURL);
 
         if (DEBUG) {
             console.log('>>> ' + socket.username + ' has connected');
@@ -183,26 +197,33 @@ io.sockets.on('connection', function (socket) {
         connectedUsers--;
         resetSessionLog(connectedUsers);
     });
+
+    // Writes incoming data to an audio file
+    function writeAudioFile(dataURL, fileName) {
+        let audioFileName = './audio-recordings/' + fileName;
+        dataURL = dataURL.split(',').pop();
+        let fileBuffer = new Buffer(dataURL, 'base64');
+        fs.writeFileSync(audioFileName, fileBuffer);
+
+        if (DEBUG) {
+            console.log('> audio file saved as ' + audioFileName);
+        }
+
+        writeToServerLog(LOG.Info, "Audio file is saved at " + audioFileName);
+        writeToSessionLog(LOG.Info, "Audio file is saved at " + audioFileName);
+
+        const stats = fs.statSync(audioFileName);
+        const fileSizeInBytes = stats.size;
+
+        testing(fileSizeInBytes);
+    }
 });
 
 http.listen(port, function () {
     writeToServerLog(LOG.Debug, "Server is now listening");
 });
 
-// Writes incoming data to an audio file
-function writeAudioFile(dataURL, fileName) {
-    let audioFileName = './audio-recordings/' + fileName;
-    dataURL = dataURL.split(',').pop();
-    let fileBuffer = new Buffer(dataURL, 'base64');
-    fs.writeFileSync(audioFileName, fileBuffer);
 
-    if (DEBUG) {
-        console.log('> audio file saved as ' + audioFileName);
-    }
-
-    writeToServerLog(LOG.Info, "Audio file is saved at " + audioFileName);
-    writeToSessionLog(LOG.Info, "Audio file is saved at " + audioFileName);
-}
 
 // Writes data to a server log (primarily for debugging the server code)
 function writeToServerLog(type, logString) {
