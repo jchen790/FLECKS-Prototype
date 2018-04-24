@@ -1,7 +1,0 @@
-4/20/2018, 6:48:14 AM --- DEBUG --- Server is now listening 
-4/20/2018, 6:48:15 AM --- DEBUG --- A user connected 
-4/20/2018, 6:48:19 AM --- INFO --- undefined has disconnected 
-4/20/2018, 6:48:19 AM --- INFO --- Session log saved at ./logs/session-1524221294745.log 
-4/20/2018, 6:48:19 AM --- DEBUG --- A user connected 
-4/20/2018, 6:48:28 AM --- INFO --- testing-audio is now connected 
-4/20/2018, 6:48:33 AM --- INFO --- Audio file is saved at ./audio-recordings/testing-audio-1524221313711.wav 

@@ -165,7 +165,7 @@ io.sockets.on('connection', function (socket) {
 
                 writeToServerLog(LOG.Info, 'Audio response at ' + url + " which says '" + audioString + "'");
                 writeToSessionLog(LOG.Info, "Audio response sent saying '" + audioString + "'");
-                let responseFileName = './audio-recordings/server-' + getCurrentDateTime() + '.mp3';
+                let responseFileName = './audio-recordings/server-responses/server-' + getCurrentDateTime() + '.mp3';
                 downloadAudioResponse(url, responseFileName);
             })
             .then(function () {

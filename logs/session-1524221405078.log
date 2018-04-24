@@ -1,8 +1,0 @@
-4/20/2018, 6:50:10 AM --- INFO --- test-audio1 is now connected 
-4/20/2018, 6:50:10 AM --- INFO --- Client test-audio1 is ready to record 
-4/20/2018, 6:50:12 AM --- INFO --- Client test-audio1 began recording 
-4/20/2018, 6:50:16 AM --- INFO --- Client test-audio1 stopped recording 
-4/20/2018, 6:50:16 AM --- INFO --- Audio file is saved at ./audio-recordings/test-audio1-1524221416816.wav 
-4/20/2018, 6:52:05 AM --- INFO --- Server audio response sent to clients 
-4/20/2018, 6:54:02 AM --- INFO --- test-audio1 has disconnected 
-4/20/2018, 6:54:02 AM --- INFO --- Session has ended, there are no more participants 

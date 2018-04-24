@@ -1,8 +1,0 @@
-4/20/2018, 3:09:53 AM --- DEBUG --- Server is now listening 
-4/20/2018, 3:10:02 AM --- DEBUG --- A user connected 
-4/20/2018, 3:10:05 AM --- INFO --- w1 is now connected 
-4/20/2018, 3:10:09 AM --- DEBUG --- A user connected 
-4/20/2018, 3:10:11 AM --- INFO --- w2 is now connected 
-4/20/2018, 3:10:26 AM --- INFO --- w1 requested an audio response from server 
-4/20/2018, 3:10:26 AM --- DEBUG --- Server is returning C:\Projects\FLECKS-Prototype/audio-recordings/undefined 
-4/20/2018, 3:10:26 AM --- DEBUG --- Server has written to the audio to stream 
