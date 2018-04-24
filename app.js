@@ -10,14 +10,25 @@ var DEBUG = true;
 var connectedUsers = 0;
 
 const app = require('express')();
-const http = require('http').Server(app);
+const https = require('https');
 const path = require("path");
 const fs = require("fs");
-const io = require('socket.io')(http);
+const io = require('socket.io')(https);
 const ss = require('socket.io-stream');
+
+var options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+var httpsServer = https.createServer(options, app);
 
 // Choose which local port
 const port = 8080;
+
+httpsServer.listen(port, function () {
+    writeToServerLog(LOG.Debug, "Server is now listening");
+});
 
 // Serve html file
 app.get('/', function (req, res) {
@@ -170,9 +181,6 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-http.listen(port, function () {
-    writeToServerLog(LOG.Debug, "Server is now listening");
-});
 
 // Writes incoming data to an audio file
 function writeAudioFile(dataURL, fileName) {
