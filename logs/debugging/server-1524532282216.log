@@ -1,0 +1,7 @@
+4/23/2018, 9:11:22 PM --- DEBUG --- Server is now listening 
+4/23/2018, 9:11:24 PM --- DEBUG --- A user connected 
+4/23/2018, 9:11:26 PM --- INFO ---  has disconnected 
+4/23/2018, 9:11:26 PM --- INFO --- Session log saved at ./logs/session-1524532282215.log 
+4/23/2018, 9:11:27 PM --- DEBUG --- A user connected 
+4/23/2018, 9:11:30 PM --- INFO --- e is now connected 
+4/23/2018, 9:11:35 PM --- INFO --- Audio file is saved at ./audio-recordings/e-1524532295527.wav 

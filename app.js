@@ -109,6 +109,13 @@ function downloadAudioResponse (url, dest) {
         file.on('finish', function() 
         {
           // close() is async, call resolve after close completes.
+          let stream = ss.createStream();
+                let responseFileName = './audio-recordings/server-response.mp3';
+
+                // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
+
+                ss(socket).emit('test1', stream, { name: responseFileName });
+                fs.createReadStream(responseFileName).pipe(stream);
           file.close(resolve);
         });
 
@@ -142,13 +149,13 @@ function downloadAudioResponse (url, dest) {
             })
             .then(function () {
                 console.log('download success');
-                let stream = ss.createStream();
-                let responseFileName = './audio-recordings/server-response.mp3';
+                // let stream = ss.createStream();
+                // let responseFileName = './audio-recordings/server-response.mp3';
 
-                // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
+                // // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
 
-                ss(socket).emit('test1', stream, { name: responseFileName });
-                fs.createReadStream(responseFileName).pipe(stream);
+                // ss(socket).emit('test1', stream, { name: responseFileName });
+                // fs.createReadStream(responseFileName).pipe(stream);
             })
             .catch(function (err) {
                 console.error(err.stack);

@@ -8,3 +8,9 @@
 4/23/2018, 6:39:02 PM --- INFO --- Client r stopped recording 
 4/23/2018, 6:39:02 PM --- INFO --- Audio file is saved at ./audio-recordings/r-1524523142445.wav 
 4/23/2018, 6:39:02 PM --- INFO --- Client r received an audio response from server 
+4/23/2018, 6:40:46 PM --- INFO --- Server audio response sent to clients 
+4/23/2018, 6:42:46 PM --- INFO --- Server audio response sent to clients 
+4/23/2018, 6:44:46 PM --- INFO --- Server audio response sent to clients 
+4/23/2018, 6:46:46 PM --- INFO --- Server audio response sent to clients 
+4/23/2018, 8:17:31 PM --- INFO --- r has disconnected 
+4/23/2018, 8:17:31 PM --- INFO --- Session has ended, there are no more participants 
