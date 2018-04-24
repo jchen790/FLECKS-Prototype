@@ -10,10 +10,6 @@ var DEBUG = true;
 const currLocale = 'en-US';
 var connectedUsers = 0;
 const port = 8080;
-const options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-};
 
 // Imported packages
 "use strict";
@@ -28,6 +24,10 @@ const urlParse = require('url').parse;
 const googleTTS = require('google-tts-api');
 
 // Serve on assigned port
+const options = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+};
 const httpsServer = https.createServer(options, app);
 httpsServer.listen(port, function () {
     console.log("Server is now listening on port " + port);
