@@ -13,22 +13,25 @@ const app = require('express')();
 const https = require('https');
 const path = require("path");
 const fs = require("fs");
-const io = require('socket.io')(https);
+
 const ss = require('socket.io-stream');
+
 
 var options = {
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
 };
 
-var httpsServer = https.createServer(options, app);
-
 // Choose which local port
 const port = 8080;
 
+var httpsServer = https.createServer(options, app);
 httpsServer.listen(port, function () {
     writeToServerLog(LOG.Debug, "Server is now listening");
 });
+
+
+const io = require('socket.io')(httpsServer);
 
 // Serve html file
 app.get('/', function (req, res) {
@@ -180,6 +183,7 @@ io.sockets.on('connection', function (socket) {
         resetSessionLog(connectedUsers);
     });
 });
+
 
 
 // Writes incoming data to an audio file
