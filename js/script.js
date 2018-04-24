@@ -37,12 +37,6 @@ socketio.on('connect', function (message) {
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " is ready to record"));
     });
 
-    socketio.on('test', function(url) {
-        let audioResponse = document.getElementById('final-audio');
-        audioResponse.src = url;
-        audioResponse.play();
-    });
-
     var recordAudio;
 
     // Toggle recording mode - save audio when recording, stream all saved audio when stopped
@@ -69,7 +63,6 @@ socketio.on('connect', function (message) {
                 socketio.emit('log', writeToLog(LOG.Error, "Cannot use getUserMedia()"));
             });
 
-            $('#fin-audio').hide();
             $('#recording-icon').text('stop');
             $('#recording-text').text('Recording in progress...');
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " began recording"));
@@ -95,19 +88,12 @@ socketio.on('connect', function (message) {
             });
 
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " stopped recording"));
-            socketio.emit('end_session', 0);
         }
-    });
-
-    // Manually request feedback from "virtual agents"
-    $('#request').click(function () {
-        socketio.emit('request_response', 'request');
-        socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " requested an audio response from server"));
     });
 
     // Receive streamed audio from server
     ss(socketio).on('audio-stream', function (stream, data) {
-        console.log('received data');
+        console.log('Received server audio response');
 
         parts = [];
         stream.on('data', function (chunk) {
@@ -122,15 +108,15 @@ socketio.on('connect', function (message) {
         });
     });
 
-    // Mamually request final audio file
+    // Manually request final audio file
     $('#audio-request').click(function () {
         socketio.emit('request_final', 'request');
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " requested their final audio file"));
     });
 
     // Receive final audio file from server
-    ss(socketio).on('file', function (stream, data) {
-        console.log('received data');
+    ss(socketio).on('final-audio-stream', function (stream, data) {
+        console.log('Received recorded audio');
 
         parts = [];
         stream.on('data', function (chunk) {
@@ -144,22 +130,6 @@ socketio.on('connect', function (message) {
             socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
         });
     });
-
-    ss(socketio).on('test1', function(stream, data) {
-        console.log('received data');
-
-        parts = [];
-        stream.on('data', function (chunk) {
-            parts.push(chunk);
-        });
-
-        stream.on('end', function () {
-            let audioResponse = document.getElementById('final-audio');
-            audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
-            audioResponse.play();
-            socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
-        });
-    })
 });
 
 // Format strings for logs

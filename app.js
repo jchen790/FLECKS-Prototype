@@ -116,7 +116,7 @@ io.sockets.on('connection', function (socket) {
 
         writeToServerLog(LOG.Debug, "Server is returning " + fileName);
 
-        ss(socket).emit('file', stream, { name: fileName });
+        ss(socket).emit('final-audio-stream', stream, { name: fileName });
         fs.createReadStream(fileName).pipe(stream);
 
         writeToServerLog(LOG.Debug, "Server has written to the audio to stream");
