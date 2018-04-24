@@ -24,45 +24,27 @@ const ss = require('socket.io-stream');
 const urlParse  = require('url').parse;
 const googleTTS = require('google-tts-api');
 
-var x = "yasss queen";
-var testURL = "";
-
-googleTTS('Hello World, I just wanna say ' + x, 'en', 1)   // speed normal = 1 (default), slow = 0.24
-            .then(function (url) {
-                testURL = url;
-                console.log(url); // https://translate.google.com/translate_tts?...
-            })
-            .catch(function (err) {
-                console.error(err.stack);
-            });
-
-
-// Serve html file
+// Functions for GET requests
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-// Serve custom js
 app.get('/script.js', function (req, res) {
     res.sendFile(__dirname + '/js/script.js');
 });
 
-// Serve recording js
 app.get('/recordrtc/RecordRTC.js', function (req, res) {
     res.sendFile(__dirname + '/js/recordrtc/RecordRTC.js');
 });
 
-// Serve streaming js
 app.get('/socket.io-stream.js', function (req, res) {
     res.sendFile(__dirname + '/js/socket.io-stream.js');
 });
 
-// Serve stylesheet
 app.get('/styles.css', function (req, res) {
     res.sendFile(__dirname + '/styles.css');
 });
 
-// Serve image
 app.get('/agents.png', function (req, res) {
     res.sendFile(__dirname + '/agents.png');
 });
@@ -75,93 +57,6 @@ let serverLogFileWriteStream = fs.createWriteStream(serverLogFileName);
 
 // Use socket.io and socket.io-stream libraries to stream and emit data
 io.sockets.on('connection', function (socket) {
-    // Writes to local file
-function downloadAudioResponse (url, dest) {
-    return new Promise(function (resolve, reject) 
-    {
-      let info = urlParse(url);
-      let httpClientVar;
-      if (info.protocol === 'https:')
-      {
-        httpClientVar = https;
-      }
-      else
-      {
-          httpClientVar = http;
-      }
-      let options = 
-      {
-        host: info.host,
-        path: info.path
-      };
-  
-      httpClientVar.get(options, function(res) 
-      {
-        // check status code
-        if (res.statusCode !== 200) 
-        {
-            console.log(res.statusCode);
-          reject(new Error('request to ' + url + ' failed'));
-          return;
-        }
-  
-        let file = fs.createWriteStream(dest);
-        file.on('finish', function() 
-        {
-          // close() is async, call resolve after close completes.
-          let stream = ss.createStream();
-                let responseFileName = './audio-recordings/server-response.mp3';
-
-                // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
-
-                ss(socket).emit('test1', stream, { name: responseFileName });
-                fs.createReadStream(responseFileName).pipe(stream);
-          file.close(resolve);
-        });
-
-        file.on('error', function (err) 
-        {
-          // Delete the file async. (But we don't check the result)
-          fs.unlink(dest);
-          reject(err);
-        });
-  
-        res.pipe(file);
-      })
-      .on('error', function(err) {
-        reject(err);
-      })
-      .end();
-    });
-  }
-
-    function testing(time) 
-    {
-        googleTTS('file size of ' + time, 'en', 1)   // speed normal = 1 (default), slow = 0.24
-            .then(function (url) {
-                testURL = url;
-                console.log(url); // https://translate.google.com/translate_tts?...
-                socket.emit('test', testURL);
-
-                console.log(url);
-                let responseFileName = './audio-recordings/server-response.mp3';
-                downloadAudioResponse(url, responseFileName);
-            })
-            .then(function () {
-                console.log('download success');
-                // let stream = ss.createStream();
-                // let responseFileName = './audio-recordings/server-response.mp3';
-
-                // // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
-
-                // ss(socket).emit('test1', stream, { name: responseFileName });
-                // fs.createReadStream(responseFileName).pipe(stream);
-            })
-            .catch(function (err) {
-                console.error(err.stack);
-            });
-    }
-
     socket.username = "";
     connectedUsers++;
 
@@ -175,7 +70,6 @@ function downloadAudioResponse (url, dest) {
     socket.on('new_user', function (username) {
         socket.username = username;
         socket.emit('user_acked', 'You are connected!');
-        // socket.emit('test', testURL);
 
         if (DEBUG) {
             console.log('>>> ' + socket.username + ' has connected');
@@ -201,22 +95,17 @@ function downloadAudioResponse (url, dest) {
 
         writeToServerLog(LOG.Info, socket.username + " requested an audio response from server");
 
-        let stream = ss.createStream();
-        let fileName = __dirname + '/server-audio0.wav';
+        // let stream = ss.createStream();
+        // let fileName = __dirname + '/server-audio0.wav';
 
         writeToServerLog(LOG.Debug, "Server is returning " + fileName);
 
-        ss(socket).emit('audio-stream', stream, { name: fileName });
-        fs.createReadStream(fileName).pipe(stream);
-
-        // broadcast audio to all other clients
+        // Broadcast audio to all connected clients
         for (var i in io.sockets.connected) {
-            if (io.sockets.connected[i].id != socket.id) {
-                let clientSocket = io.sockets.connected[i];
-                let stream1 = ss.createStream();
-                ss(clientSocket).emit('audio-stream', stream1, { name: fileName });
-                fs.createReadStream(fileName).pipe(stream1);
-            }
+            let clientSocket = io.sockets.connected[i];
+            let stream = ss.createStream();
+            ss(clientSocket).emit('audio-stream', stream, { name: fileName });
+            fs.createReadStream(fileName).pipe(stream);
         }
 
         writeToServerLog(LOG.Debug, "Server has written to the audio to stream");
@@ -241,33 +130,12 @@ function downloadAudioResponse (url, dest) {
         writeToServerLog(LOG.Debug, "Server has written to the audio to stream");
     });
 
-    // Send audio response to all clients every 2 min
-    var audioResponseInterval = setInterval(() => {
-        // don't start timer if not signed in yet
-        if (!socket.username) {
-            return;
-        }
-
-        // broadcast audio to all other clients
-        for (var i in io.sockets.connected) {
-            if (io.sockets.connected[i].id != socket.id) {
-                let clientSocket = io.sockets.connected[i];
-                let stream = ss.createStream();
-                let fileName = __dirname + '/server-audio0.wav';
-                ss(clientSocket).emit('audio-stream', stream, { name: fileName });
-                fs.createReadStream(fileName).pipe(stream);
-            }
-        }
-
-        writeToServerLog(LOG.Info, "Server audio response sent to clients");
-        writeToSessionLog(LOG.Info, "Server audio response sent to clients");
-    }, 120000);
-
     // Write to log file
     socket.on('log', function (message) {
         sessionLogFileWriteStream.write(message);
     });
 
+    // Log information when user disconnects
     socket.on('disconnect', function (message) {
         writeToServerLog(LOG.Info, socket.username + " has disconnected");
         writeToSessionLog(LOG.Info, socket.username + " has disconnected");
@@ -289,18 +157,111 @@ function downloadAudioResponse (url, dest) {
         writeToServerLog(LOG.Info, "Audio file is saved at " + audioFileName);
         writeToSessionLog(LOG.Info, "Audio file is saved at " + audioFileName);
 
-        const stats = fs.statSync(audioFileName);
-        const fileSizeInBytes = stats.size;
-
-        testing(fileSizeInBytes);
+        testing(getFileSize(audioFileName, 'KB'));
     }
-});
 
+    // Writes to local file
+    function downloadAudioResponse (url, dest) {
+        return new Promise(function (resolve, reject) 
+        {
+        let info = urlParse(url);
+        let httpClientVar;
+        if (info.protocol === 'https:')
+        {
+            httpClientVar = https;
+        }
+        else
+        {
+            httpClientVar = http;
+        }
+        let options = 
+        {
+            host: info.host,
+            path: info.path
+        };
+    
+        httpClientVar.get(options, function(res) 
+        {
+            // check status code
+            if (res.statusCode !== 200) 
+            {
+                console.log(res.statusCode);
+            reject(new Error('request to ' + url + ' failed'));
+            return;
+            }
+    
+            let file = fs.createWriteStream(dest);
+            file.on('finish', function() 
+            {
+            // close() is async, call resolve after close completes.
+            // let stream = ss.createStream();
+                    let responseFileName = './audio-recordings/server-response.mp3';
+
+                    // // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
+
+                    // ss(socket).emit('test1', stream, { name: responseFileName });
+                    // fs.createReadStream(responseFileName).pipe(stream);
+
+// Broadcast audio to all connected clients
+for (var i in io.sockets.connected) {
+    let clientSocket = io.sockets.connected[i];
+    let stream = ss.createStream();
+    ss(clientSocket).emit('audio-stream', stream, { name: responseFileName });
+    fs.createReadStream(responseFileName).pipe(stream);
+}
+
+            file.close(resolve);
+            });
+
+            file.on('error', function (err) 
+            {
+            // Delete the file async. (But we don't check the result)
+            fs.unlink(dest);
+            reject(err);
+            });
+    
+            res.pipe(file);
+        })
+        .on('error', function(err) {
+            reject(err);
+        })
+        .end();
+        });
+    }
+
+        function testing(time) 
+        {
+            googleTTS('file size of ' + time, 'en', 1)   // speed normal = 1 (default), slow = 0.24
+                .then(function (url) {
+                    testURL = url;
+                    console.log(url); // https://translate.google.com/translate_tts?...
+                    socket.emit('test', testURL);
+
+                    console.log(url);
+                    let responseFileName = './audio-recordings/server-response.mp3';
+                    downloadAudioResponse(url, responseFileName);
+                })
+                .then(function () {
+                    console.log('download success');
+                    // let stream = ss.createStream();
+                    // let responseFileName = './audio-recordings/server-response.mp3';
+
+                    // // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
+
+                    // ss(socket).emit('test1', stream, { name: responseFileName });
+                    // fs.createReadStream(responseFileName).pipe(stream);
+                })
+                .catch(function (err) {
+                    console.error(err.stack);
+                });
+        }
+    });
+
+// Serve on assigned port
 http.listen(port, function () {
+    console.log("Server is listening on port " + port);
     writeToServerLog(LOG.Debug, "Server is now listening");
 });
-
-
 
 // Writes data to a server log (primarily for debugging the server code)
 function writeToServerLog(type, logString) {
@@ -359,5 +320,28 @@ function resetSessionLog(numUsers) {
         sessionLogFileName = './logs/session-' + Date.now() + '.log';
         sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName);
     }
+}
+
+// Gets file size in requested units
+function getFileSize(fileName, unit)
+{
+    let stats = fs.statSync(fileName);
+    let tempFileSize = stats.size;
+
+    let fileSize = tempFileSize;
+    if(unit === "KB")
+    {
+        fileSize = tempFileSize / 1000;
+    }
+    else if (unit === "MB")
+    {
+        fileSize = tempFileSize / 1000000;
+    }
+    else if (unit === "GB")
+    {
+        fileSize = tempFileSize / 1000000000;
+    }
+    
+    return fileSize;
 }
 
