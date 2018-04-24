@@ -1,0 +1,14 @@
+4/24/2018, 12:50:05 AM --- DEBUG --- Server is now listening 
+4/24/2018, 12:50:05 AM --- DEBUG --- A user connected 
+4/24/2018, 12:50:05 AM --- DEBUG --- A user connected 
+4/24/2018, 12:50:09 AM --- INFO ---  has disconnected 
+4/24/2018, 12:50:09 AM --- DEBUG --- A user connected 
+4/24/2018, 12:50:11 AM --- INFO ---  has disconnected 
+4/24/2018, 12:50:11 AM --- DEBUG --- A user connected 
+4/24/2018, 12:50:14 AM --- INFO --- bob is now connected 
+4/24/2018, 12:50:17 AM --- INFO --- kelly is now connected 
+4/24/2018, 12:50:23 AM --- INFO --- Audio file is saved at ./audio-recordings/bob-20180424-005023.wav 
+4/24/2018, 12:50:41 AM --- INFO --- Audio file is saved at ./audio-recordings/kelly-20180424-005041.wav 
+4/24/2018, 12:51:00 AM --- INFO --- Audio file is saved at ./audio-recordings/kelly-20180424-005100.wav 
+4/24/2018, 12:51:15 AM --- INFO --- Audio file is saved at ./audio-recordings/kelly-20180424-005115.wav 
+4/24/2018, 12:51:15 AM --- INFO --- Audio file is saved at ./audio-recordings/bob-20180424-005115.wav 

@@ -1,0 +1,31 @@
+4/24/2018, 12:50:09 AM --- INFO ---  has disconnected 
+4/24/2018, 12:50:11 AM --- INFO ---  has disconnected 
+4/24/2018, 12:50:14 AM --- INFO --- bob is now connected 
+4/24/2018, 12:50:14 AM --- INFO --- Client bob is ready to record 
+4/24/2018, 12:50:17 AM --- INFO --- kelly is now connected 
+4/24/2018, 12:50:17 AM --- INFO --- Client kelly is ready to record 
+4/24/2018, 12:50:21 AM --- INFO --- Client bob began recording 
+4/24/2018, 12:50:23 AM --- INFO --- Client bob stopped recording 
+4/24/2018, 12:50:23 AM --- INFO --- Audio file is saved at ./audio-recordings/bob-20180424-005023.wav 
+4/24/2018, 12:50:24 AM --- INFO --- Client bob received an audio response from server 
+4/24/2018, 12:50:24 AM --- INFO --- Client kelly received an audio response from server 
+4/24/2018, 12:50:38 AM --- INFO --- Client kelly began recording 
+4/24/2018, 12:50:41 AM --- INFO --- Client kelly stopped recording 
+4/24/2018, 12:50:41 AM --- INFO --- Audio file is saved at ./audio-recordings/kelly-20180424-005041.wav 
+4/24/2018, 12:50:42 AM --- INFO --- Client bob received an audio response from server 
+4/24/2018, 12:50:42 AM --- INFO --- Client kelly received an audio response from server 
+4/24/2018, 12:50:54 AM --- INFO --- Client bob began recording 
+4/24/2018, 12:50:56 AM --- INFO --- Client kelly began recording 
+4/24/2018, 12:51:00 AM --- INFO --- Client kelly stopped recording 
+4/24/2018, 12:51:00 AM --- INFO --- Audio file is saved at ./audio-recordings/kelly-20180424-005100.wav 
+4/24/2018, 12:51:01 AM --- INFO --- Client bob received an audio response from server 
+4/24/2018, 12:51:01 AM --- INFO --- Client kelly received an audio response from server 
+4/24/2018, 12:51:03 AM --- INFO --- Client kelly began recording 
+4/24/2018, 12:51:14 AM --- INFO --- Client kelly stopped recording 
+4/24/2018, 12:51:14 AM --- INFO --- Client bob stopped recording 
+4/24/2018, 12:51:15 AM --- INFO --- Audio file is saved at ./audio-recordings/kelly-20180424-005115.wav 
+4/24/2018, 12:51:15 AM --- INFO --- Audio file is saved at ./audio-recordings/bob-20180424-005115.wav 
+4/24/2018, 12:51:15 AM --- INFO --- Client bob received an audio response from server 
+4/24/2018, 12:51:15 AM --- INFO --- Client kelly received an audio response from server 
+4/24/2018, 12:51:16 AM --- INFO --- Client kelly received an audio response from server 
+4/24/2018, 12:51:16 AM --- INFO --- Client bob received an audio response from server 

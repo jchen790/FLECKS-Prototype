@@ -7,6 +7,7 @@ var LOG = {
 var DEBUG = true;
 
 // Server variables
+var currLocale = 'en-US';
 var connectedUsers = 0;
 const port = 8080;
 
@@ -81,12 +82,13 @@ io.sockets.on('connection', function (socket) {
 
     // Collect audio stream
     socket.on('audio', function (data) {
-        let fileName = socket.username + '-' + Date.now();
+        let fileName = socket.username + '-' + getCurrentDateTime();
         socket.audioFileName = fileName + '.wav';
 
-        writeAudioFile(data.audio.dataURL, fileName + '.wav');
+        writeClientAudioFile(data.audio.dataURL, fileName + '.wav');
     });
 
+    // TODO - remove
     // Send audio response to all clients upon request
     socket.on('request_response', function (data) {
         if (DEBUG) {
@@ -144,7 +146,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     // Writes incoming data to an audio file
-    function writeAudioFile(dataURL, fileName) {
+    function writeClientAudioFile(dataURL, fileName) {
         let audioFileName = './audio-recordings/' + fileName;
         dataURL = dataURL.split(',').pop();
         let fileBuffer = new Buffer(dataURL, 'base64');
@@ -157,105 +159,88 @@ io.sockets.on('connection', function (socket) {
         writeToServerLog(LOG.Info, "Audio file is saved at " + audioFileName);
         writeToSessionLog(LOG.Info, "Audio file is saved at " + audioFileName);
 
-        testing(getFileSize(audioFileName, 'KB'));
+        sendAudioResponse(getFileSize(audioFileName, 'KB') + ' kilobytes');
     }
 
-    // Writes to local file
-    function downloadAudioResponse (url, dest) {
+    // Get audio response and send to client
+    function sendAudioResponse(fileSize) 
+    {
+        let tempDate = new Date();
+        let currDate = tempDate.toLocaleString(currLocale);
+        googleTTS('File has been received at ' + currDate + ' from user ' + socket.username + ' with file size of ' + fileSize, currLocale, 1)   
+            .then(function (url) {
+                console.log(url);
+                // TODO - log url
+                let responseFileName = './audio-recordings/server-' + getCurrentDateTime() + '.mp3';
+                downloadAudioResponse(url, responseFileName);
+            })
+            .then(function () {
+                console.log('download success');
+                // TODO - log success
+            })
+            .catch(function (err) {
+                console.error(err.stack);
+                // TODO - log error
+            });
+    }
+
+    // Downloads audio response from url to mp3
+    function downloadAudioResponse (url, responseFileName) 
+    {
         return new Promise(function (resolve, reject) 
         {
-        let info = urlParse(url);
-        let httpClientVar;
-        if (info.protocol === 'https:')
-        {
-            httpClientVar = https;
-        }
-        else
-        {
-            httpClientVar = http;
-        }
-        let options = 
-        {
-            host: info.host,
-            path: info.path
-        };
-    
-        httpClientVar.get(options, function(res) 
-        {
-            // check status code
-            if (res.statusCode !== 200) 
+            // Set up http client to call URL
+            let parsedURL = urlParse(url);
+            let httpClientVar;
+            if (parsedURL.protocol === 'https:')
             {
-                console.log(res.statusCode);
-            reject(new Error('request to ' + url + ' failed'));
-            return;
+                httpClientVar = https;
             }
-    
-            let file = fs.createWriteStream(dest);
-            file.on('finish', function() 
+            else
             {
-            // close() is async, call resolve after close completes.
-            // let stream = ss.createStream();
-                    let responseFileName = './audio-recordings/server-response.mp3';
-
-                    // // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
-
-                    // ss(socket).emit('test1', stream, { name: responseFileName });
-                    // fs.createReadStream(responseFileName).pipe(stream);
-
-// Broadcast audio to all connected clients
-for (var i in io.sockets.connected) {
-    let clientSocket = io.sockets.connected[i];
-    let stream = ss.createStream();
-    ss(clientSocket).emit('audio-stream', stream, { name: responseFileName });
-    fs.createReadStream(responseFileName).pipe(stream);
-}
-
-            file.close(resolve);
-            });
-
-            file.on('error', function (err) 
+                httpClientVar = http;
+            }
+            let options = 
             {
-            // Delete the file async. (But we don't check the result)
-            fs.unlink(dest);
-            reject(err);
-            });
-    
-            res.pipe(file);
-        })
-        .on('error', function(err) {
-            reject(err);
-        })
-        .end();
-        });
-    }
+                host: parsedURL.host,
+                path: parsedURL.path
+            };
+        
+            // GET call at given url
+            httpClientVar.get(options, function(response) 
+            {
+                // check status code
+                if (response.statusCode !== 200) 
+                {
+                    console.log(response.statusCode);
+                    reject(new Error('request to ' + url + ' failed'));
+                    // TODO = log error
+                    return;
+                }
+        
+                let file = fs.createWriteStream(responseFileName);
+                file.on('finish', function() 
+                {
+                    // Broadcast audio to all connected clients
+                    for (var i in io.sockets.connected) {
+                        let clientSocket = io.sockets.connected[i];
+                        let stream = ss.createStream();
+                        ss(clientSocket).emit('audio-stream', stream, { name: responseFileName });
+                        fs.createReadStream(responseFileName).pipe(stream);
+                    }
 
-        function testing(time) 
-        {
-            googleTTS('file size of ' + time, 'en', 1)   // speed normal = 1 (default), slow = 0.24
-                .then(function (url) {
-                    testURL = url;
-                    console.log(url); // https://translate.google.com/translate_tts?...
-                    socket.emit('test', testURL);
-
-                    console.log(url);
-                    let responseFileName = './audio-recordings/server-response.mp3';
-                    downloadAudioResponse(url, responseFileName);
-                })
-                .then(function () {
-                    console.log('download success');
-                    // let stream = ss.createStream();
-                    // let responseFileName = './audio-recordings/server-response.mp3';
-
-                    // // writeToServerLog(LOG.Debug, "Server is returning " + fileName);
-
-                    // ss(socket).emit('test1', stream, { name: responseFileName });
-                    // fs.createReadStream(responseFileName).pipe(stream);
-                })
-                .catch(function (err) {
-                    console.error(err.stack);
+                    file.close(resolve);
                 });
-        }
-    });
+        
+                response.pipe(file);
+            })
+            .on('error', function(err) {
+                reject(err);
+            })
+            .end();
+        });
+    }        
+});
 
 // Serve on assigned port
 http.listen(port, function () {
@@ -266,8 +251,7 @@ http.listen(port, function () {
 // Writes data to a server log (primarily for debugging the server code)
 function writeToServerLog(type, logString) {
     let tempDate = new Date();
-    // TODO - update to school's locale
-    let currDate = tempDate.toLocaleString("en-US");
+    let currDate = tempDate.toLocaleString(currLocale);
 
     let typeString = "";
     if (type === LOG.Error) {
@@ -289,8 +273,7 @@ function writeToServerLog(type, logString) {
 // Writes data to the session log
 function writeToSessionLog(type, logString) {
     let tempDate = new Date();
-    // TODO - update to school's locale
-    let currDate = tempDate.toLocaleString("en-US");
+    let currDate = tempDate.toLocaleString(currLocale);
 
     let typeString = "";
     if (type === LOG.Error) {
@@ -345,3 +328,35 @@ function getFileSize(fileName, unit)
     return fileSize;
 }
 
+// Gets current date and time for file names
+// returns as 'yyyymmdd-hhmmss'
+function getCurrentDateTime()
+{
+    let tempDate = new Date();
+
+    let tempYear = tempDate.getFullYear();
+    let tempMonth = tempDate.getMonth() + 1;
+    let tempDay = tempDate.getDate();
+    let tempHour = tempDate.getHours();
+    let tempMin = tempDate.getMinutes();
+    let tempSec = tempDate.getSeconds();
+    return tempYear + formatDateTime(tempMonth) + formatDateTime(tempDay) 
+        + '-' + formatDateTime(tempHour) + formatDateTime(tempMin) + formatDateTime(tempSec);
+}
+
+// Formatting for date
+function formatDateTime(tempNumber)
+{
+    let tempString = '';
+
+    if(tempNumber < 10)
+    {
+        tempString = '0' + tempNumber;
+    }
+    else
+    {
+        tempString = tempNumber;
+    }
+
+    return tempString;
+}
