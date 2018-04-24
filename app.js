@@ -7,23 +7,35 @@ var LOG = {
 var DEBUG = true;
 
 // Server variables
-var currLocale = 'en-US';
+const currLocale = 'en-US';
 var connectedUsers = 0;
 const port = 8080;
+const options = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+};
 
 // Imported packages
 "use strict";
 require('es6-promise').polyfill();
 const app = require('express')();
-const http = require('http').Server(app);
-const httpClient = require('http');
+const http = require('http');
 const https = require('https');
 const path = require("path");
 const fs = require("fs");
-const io = require('socket.io')(http);
 const ss = require('socket.io-stream');
 const urlParse = require('url').parse;
 const googleTTS = require('google-tts-api');
+
+// Serve on assigned port
+const httpsServer = https.createServer(options, app);
+httpsServer.listen(port, function () {
+    console.log("Server is now listening on port " + port);
+    writeToServerLog(LOG.Debug, "Server is now listening");
+});
+
+// Connect sockets to https server
+const io = require('socket.io')(httpsServer);
 
 /*********************************************************************************************************
  * 
@@ -186,12 +198,12 @@ io.sockets.on('connection', function (socket) {
         return new Promise(function (resolve, reject) {
             // Set up http client to call URL
             let parsedURL = urlParse(url);
-            let httpClientVar;
+            let httpClient;
             if (parsedURL.protocol === 'https:') {
-                httpClientVar = https;
+                httpClient = https;
             }
             else {
-                httpClientVar = http;
+                httpClient = http;
             }
             let options =
                 {
@@ -200,7 +212,7 @@ io.sockets.on('connection', function (socket) {
                 };
 
             // GET call at given url
-            httpClientVar.get(options, function (response) {
+            httpClient.get(options, function (response) {
                 // check status code
                 if (response.statusCode !== 200) {
                     if (DEBUG) {
@@ -233,12 +245,6 @@ io.sockets.on('connection', function (socket) {
                 .end();
         });
     }
-});
-
-// Serve on assigned port
-http.listen(port, function () {
-    console.log("Server is listening on port " + port);
-    writeToServerLog(LOG.Debug, "Server is now listening");
 });
 
 /*********************************************************************************************************

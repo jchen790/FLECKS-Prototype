@@ -28,6 +28,16 @@
         <button type="button" class="btn btn-primary" id="connect">Connect</button>
     </div>
 
+    <script>
+        document.getElementById("signin")
+        .addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+            document.getElementById("connect").click();
+        }
+        });
+    </script>
+
     <div id="main">
         <p>
             This is a prototype of the audio data collection portion of the FLECKS Project. As students interact with the programming
