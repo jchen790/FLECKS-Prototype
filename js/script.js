@@ -8,6 +8,7 @@ var LOG = {
 var socketio = io();
 var mediaStream = null;
 var isRecording = false;
+var isConnected = false;
 
 // Get username - will be used for logs and file names
 var username = "";
@@ -33,6 +34,7 @@ socketio.on('connect', function (message) {
     socketio.on('user_acked', function (message) {
         $('#server-message').text(message);
         $('#recording').prop("disabled", false);
+        isConnected = true;
 
         socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " is ready to record"));
     });
@@ -93,19 +95,22 @@ socketio.on('connect', function (message) {
 
     // Receive streamed audio from server
     ss(socketio).on('audio-stream', function (stream, data) {
-        console.log('Received server audio response');
+        if(isConnected)
+        {
+            console.log('Received server audio response');
 
-        parts = [];
-        stream.on('data', function (chunk) {
-            parts.push(chunk);
-        });
+            parts = [];
+            stream.on('data', function (chunk) {
+                parts.push(chunk);
+            });
 
-        stream.on('end', function () {
-            let audioResponse = document.getElementById('server-response');
-            audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
-            audioResponse.play();
-            socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
-        });
+            stream.on('end', function () {
+                let audioResponse = document.getElementById('server-response');
+                audioResponse.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+                audioResponse.play();
+                socketio.emit('log', writeToLog(LOG.Info, "Client " + username + " received an audio response from server"));
+            });
+        }
     });
 
     // Manually request final audio file
