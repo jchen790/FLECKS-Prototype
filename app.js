@@ -305,7 +305,7 @@ function resetSessionLog(numUsers) {
         writeToServerLog(LOG.Info, "Session log saved at " + sessionLogFileName);
 
         // Start new session log file stream
-        sessionLogFileName = './logs/session-' + Date.now() + '.log';
+        sessionLogFileName = './logs/session-' + getCurrentDateTime() + '.log';
         sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName);
     }
 }
