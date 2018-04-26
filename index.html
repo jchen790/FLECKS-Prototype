@@ -1,29 +1,99 @@
 <!doctype html>
-<html>
-  <head>
-    <title>Socket.IO chat</title>
-  </head>
-  <body>
-    <div>
-        <p><span id="server-message"></span></p>
+<html lang="en">
+
+<head>
+    <title>FLECKS Audio Prototype (v3.2.0)</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--stylings-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div id="title">
+        <h1>FLECKS Audio Collection Prototype</h1>
     </div>
 
-    <div>
-        <button id="start-recording" disabled>Start Recording</button>
-        <button id="stop-recording" disabled>Stop Recording</button>
+    <!-- Sign-in view -->
+    <div id="signin">
+        <label for="username">What is your name?</label>
+        <input id="username" type="text">
+        <p class="error">
+            <span id="username-error"></span>
+        </p>
+        <button type="button" class="btn btn-primary" id="connect">Connect</button>
     </div>
 
-    <div>
-        <button id="request">request response</button>
-        <audio id="server-response" controls="controls" controlsList="nofullscreen nodownload noremoteplayback" autoplay>
-            <source src="" type="audio/wav">
-        </audio>
+    <script>
+        document.getElementById("signin")
+        .addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+            document.getElementById("connect").click();
+        }
+        });
+    </script>
+
+    <!-- Main page view -->
+    <div id="main">
+        <p>
+            This is a prototype of the audio data collection portion of the FLECKS Project. As students interact with the programming
+            environment (simulated by this web app), the environment will record their conversation and send it back to the
+            server for further analysis.
+        </p>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <!-- Record audio button -->
+                    <h2>Record Audio</h2>
+                    <button id="recording" type="button" class="btn btn-primary" disabled>
+                        <i id="recording-icon" class="material-icons">mic</i>
+                    </button>
+                    <p>
+                        <span id="recording-text"></span>
+                    </p>
+                </div>
+                <div class="col-sm">
+                    <!-- Server response playback controls -->
+                    <h2>Server Response</h2>
+                    <img src="/agents.png" alt="Virtual Agent Silhouettes" />
+                    <audio id="server-response" controls="controls" controlsList="nofullscreen nodownload noremoteplayback" autoplay>
+                        <source src="" type="audio/wav">
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div id="audio-file">
+            <!-- Request final audio button -->
+            <h2>Hear the Recorded Audio</h2>
+            <div>
+                <button id="audio-request" type="button" class="btn btn-secondary" disabled>Request Final Audio File</button>
+            </div>
+            <audio id="final-audio" controls="controls" controlsList="nofullscreen noremoteplayback" autoplay>
+                <source src="" type="audio/wav">
+            </audio>
+        </div>
     </div>
 
+    <!--scripts-->
     <script src="/recordrtc/RecordRTC.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/socket.io-stream.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="/script.js"></script>
-  </body>
+</body>
+
 </html>

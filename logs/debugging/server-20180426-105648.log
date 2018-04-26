@@ -1,0 +1,5 @@
+4/26/2018, 10:56:48 AM --- DEBUG --- Server is now listening 
+4/26/2018, 10:56:51 AM --- DEBUG --- A user connected 
+4/26/2018, 10:56:54 AM --- INFO --- test is now connected 
+4/26/2018, 10:56:57 AM --- INFO --- Audio file is saved at ./audio-recordings/test-20180426-105657.wav 
+4/26/2018, 10:56:58 AM --- INFO --- Audio response at https://translate.google.com/translate_tts?ie=UTF-8&q=File%20has%20been%20received%20at%204%2F26%2F2018%2C%2010%3A56%3A57%20AM%20from%20user%20test%20with%20file%20size%20of%2032.812%20kilobytes&tl=en-US&total=1&idx=0&textlen=98&tk=730003.873957&client=t&prev=input&ttsspeed=1 which says 'File has been received at 4/26/2018, 10:56:57 AM from user test with file size of 32.812 kilobytes' 

@@ -1,0 +1,7 @@
+4/26/2018, 10:56:54 AM --- INFO --- test is now connected 
+4/26/2018, 10:56:54 AM --- INFO --- Client test is ready to record 
+4/26/2018, 10:56:56 AM --- INFO --- Client test began recording 
+4/26/2018, 10:56:57 AM --- INFO --- Client test stopped recording 
+4/26/2018, 10:56:57 AM --- INFO --- Audio file is saved at ./audio-recordings/test-20180426-105657.wav 
+4/26/2018, 10:56:58 AM --- INFO --- Audio response sent saying 'File has been received at 4/26/2018, 10:56:57 AM from user test with file size of 32.812 kilobytes' 
+4/26/2018, 10:56:58 AM --- INFO --- Client test received an audio response from server 
