@@ -73,9 +73,9 @@ app.get('/agents.png', function (req, res) {
  * 
  ********************************************************************************************************/
 
-let sessionLogFileName = './logs/session-' + Date.now() + '.log';
+let sessionLogFileName = './logs/session-' + getCurrentDateTime() + '.log';
 let sessionLogFileWriteStream = fs.createWriteStream(sessionLogFileName);
-let serverLogFileName = './logs/debugging/server-' + Date.now() + '.log';
+let serverLogFileName = './logs/debugging/server-' + getCurrentDateTime() + '.log';
 let serverLogFileWriteStream = fs.createWriteStream(serverLogFileName);
 
 /*********************************************************************************************************

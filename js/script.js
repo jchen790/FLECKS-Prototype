@@ -26,11 +26,16 @@ $('#connect').click(function () {
     }
 });
 
-// Connected socket
+/*********************************************************************************************************
+ * 
+ * Functions that use the socket connection
+ * 
+ ********************************************************************************************************/
+
 socketio.on('connect', function (message) {
     console.log('Connected');
 
-    // User has been acknowledged
+    // User has been acknowledged and is now connected
     socketio.on('user_acked', function (message) {
         $('#server-message').text(message);
         $('#recording').prop("disabled", false);
@@ -93,7 +98,7 @@ socketio.on('connect', function (message) {
         }
     });
 
-    // Receive streamed audio from server
+    // Receive streamed audio from server (only if logged in with a username)
     ss(socketio).on('audio-stream', function (stream, data) {
         if(isConnected)
         {
@@ -137,7 +142,12 @@ socketio.on('connect', function (message) {
     });
 });
 
-// Format strings for logs
+/*********************************************************************************************************
+ * 
+ * Logging functions
+ * 
+ ********************************************************************************************************/
+
 function writeToLog(type, logString) {
     let tempDate = new Date();
     // TODO - update to school's locale
