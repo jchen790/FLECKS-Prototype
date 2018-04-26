@@ -1,4 +1,4 @@
-# FLECKS Prototype 
+# FLECKS Prototype  
 
 A simple prototype for audio data collection for the FLECKS project.
 
