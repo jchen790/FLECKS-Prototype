@@ -1,9 +1,0 @@
-4/24/2018, 2:33:56 AM --- DEBUG --- Server is now listening 
-4/24/2018, 2:34:02 AM --- DEBUG --- A user connected 
-4/24/2018, 2:34:05 AM --- INFO --- p is now connected 
-4/24/2018, 2:34:15 AM --- INFO --- p has disconnected 
-4/24/2018, 2:34:15 AM --- INFO --- Session log saved at ./logs/session-1524551636650.log 
-4/24/2018, 2:34:16 AM --- DEBUG --- A user connected 
-4/24/2018, 2:34:18 AM --- INFO --- p is now connected 
-4/24/2018, 2:34:21 AM --- INFO --- Audio file is saved at ./audio-recordings/p-20180424-023421.wav 
-4/24/2018, 2:34:21 AM --- INFO --- Audio response at https://translate.google.com/translate_tts?ie=UTF-8&q=File%20has%20been%20received%20at%204%2F24%2F2018%2C%202%3A34%3A21%20AM%20from%20user%20p%20with%20file%20size%20of%20180.268%20kilobytes&tl=en-US&total=1&idx=0&textlen=95&tk=815311.657137&client=t&prev=input&ttsspeed=1 which says 'File has been received at 4/24/2018, 2:34:21 AM from user p with file size of 180.268 kilobytes' 
